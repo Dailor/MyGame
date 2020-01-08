@@ -3,6 +3,7 @@ import os
 from Configure import *
 from TextBox import TextBox, ClickableTextBox
 
+
 def sprite_sheet(sheet, columns, rows):
     frames = list()
     rect = pygame.Rect(0, 0, sheet.get_width() // columns,
@@ -16,16 +17,16 @@ def sprite_sheet(sheet, columns, rows):
     return frames
 
 
-def text_writer(size, all_text, font_size=None, x_start=None, dy=None, *button):
+def text_writer(size, all_text, delta, start_coords, font_size=None, *button):
+    x, y = start_coords
+    dx, dy = delta
+
     if len(button):
-        buttons_group, event, draw_rect = button
-        number_event = 0
-    width, height = size
+        buttons_group, event, draw_rect, *number_event = button
+        number_event = number_event[0] if len(number_event) else 0
     image = pygame.Surface(size)
     image.fill(FILL_COLOR_UTILITIES)
-    x = 0 if x_start is None else x_start
-    y = int(height * 0.15)
-    dy = int(height * 0.08) if dy is None else dy
+
     font_size = FONT_SIZE if font_size is None else font_size
     lines_group = pygame.sprite.Group()
 
@@ -36,7 +37,9 @@ def text_writer(size, all_text, font_size=None, x_start=None, dy=None, *button):
             number_event += 1
         else:
             TextBox(lines_group, (x, y), line, font_size, draw_rect=False, color=COLOR_TEXT)
+        x += dx
         y += dy
+
     lines_group.draw(image)
     image.set_colorkey(FILL_COLOR_UTILITIES)
     return image

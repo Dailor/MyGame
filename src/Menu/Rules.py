@@ -17,7 +17,7 @@ class Rules:
         sys.exit()
 
     def game_rules(self):
-        return text_writer(SIZE, RULES_TEXT, FONT_SIZE_RULES, 10)
+        return text_writer(SIZE, RULES_TEXT, DELTA_RULES, COORDS_TEXT_RULES, FONT_SIZE_RULES)
 
     def rendering(self):
         running = True

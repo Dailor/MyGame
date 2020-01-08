@@ -4,6 +4,7 @@ from Utilities import text_writer, load_image, sprite_sheet
 from Configure import *
 from Rules import Rules
 
+
 class Menu:
     def __init__(self, screen, size):
         self.screen = screen
@@ -12,7 +13,7 @@ class Menu:
         self.background_group = pygame.sprite.Group()
         self.buttons_texts = MENU_TEXT
         self.buttons_sprites = pygame.sprite.Group()
-        text_writer(size, self.buttons_texts, FONT_SIZE_MENU, X_START, DY, self.buttons_sprites, self.events,
+        text_writer(size, self.buttons_texts, DELTA_MENU, COORDS_TEXT_MENU, FONT_SIZE_MENU, self.buttons_sprites, self.events,
                     False)
         self.background = Background(self.background_group)
         self.clock = pygame.time.Clock()
