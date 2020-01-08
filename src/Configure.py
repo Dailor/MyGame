@@ -21,7 +21,5 @@ with open('data/Menu/RULES_TEXT', encoding='utf-8') as f:
 FONT_SIZE_RULES = 33
 TEXT_COLOR_RULES = 182, 21, 222
 
-
-
 #### UTILITIES
 FILL_COLOR_UTILITIES = (0, 0, 0)

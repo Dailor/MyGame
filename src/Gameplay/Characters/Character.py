@@ -1,4 +1,5 @@
 from pygame.sprite import Sprite
+from Configure import *
 
 REGENERATION = None
 STAMINA_RECOVERY = None
