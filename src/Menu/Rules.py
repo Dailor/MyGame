@@ -6,11 +6,12 @@ from Configure import *
 
 
 class Rules:
-    def __init__(self, screen, bg, bg_group):
+    def __init__(self, screen, background, background_group):
         self.screen = screen
+        self.background = background
+        self.background_group = background_group
         self.text = self.game_rules()
-        self.background = bg
-        self.background_group = bg_group
+
 
     def terminate(self):
         pygame.quit()

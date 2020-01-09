@@ -17,21 +17,23 @@ def sprite_sheet(sheet, columns, rows):
     return frames
 
 
-def text_writer(size, all_text, delta, start_coords, font_size=None, *button):
+def text_writer(size, all_text, delta, start_coords, font_size, buttons_group=None, event=None, draw_rect=None,
+                number_event=None):
     x, y = start_coords
     dx, dy = delta
 
-    if len(button):
-        buttons_group, event, draw_rect, *number_event = button
-        number_event = number_event[0] if len(number_event) else 0
+    if buttons_group is not None:
+        button = True
+        number_event = 0 if number_event is None else number_event
+    else:
+        button = False
     image = pygame.Surface(size)
     image.fill(FILL_COLOR_UTILITIES)
 
-    font_size = FONT_SIZE if font_size is None else font_size
     lines_group = pygame.sprite.Group()
 
     for line in all_text:
-        if len(button):
+        if button:
             ClickableTextBox(buttons_group, event, number_event, (x, y), line, font_size, draw_rect=draw_rect,
                              color=COLOR_TEXT)
             number_event += 1

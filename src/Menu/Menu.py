@@ -3,6 +3,7 @@ import sys
 from Utilities import text_writer, load_image, sprite_sheet
 from Configure import *
 from Rules import Rules
+from Level_Choose import LevelChoose
 
 
 class Menu:
@@ -13,8 +14,7 @@ class Menu:
         self.background_group = pygame.sprite.Group()
         self.buttons_texts = MENU_TEXT
         self.buttons_sprites = pygame.sprite.Group()
-        text_writer(size, self.buttons_texts, DELTA_MENU, COORDS_TEXT_MENU, FONT_SIZE_MENU, self.buttons_sprites, self.events,
-                    False)
+        text_writer(size, self.buttons_texts, DELTA_MENU, COORDS_TEXT_MENU, FONT_SIZE_MENU, self.buttons_sprites, self.events, False)
         self.background = Background(self.background_group)
         self.clock = pygame.time.Clock()
 
@@ -24,13 +24,23 @@ class Menu:
                 self.terminate()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 self.buttons_sprites.update(event.pos)
+
         while len(self.events):
             event = self.events.pop()
             if event == 0:
-                pass
+                self.level_choose_load()
             elif event == 1:
-                rules = Rules(self.screen, self.background, self.background_group)
-                rules.rendering()
+                self.rules_load()
+            elif event == 2:
+                self.terminate()
+
+    def level_choose_load(self):
+        level_choose = LevelChoose(self.screen, self.background, self.background_group)
+        level_choose.rendering()
+
+    def rules_load(self):
+        rules = Rules(self.screen, self.background, self.background_group)
+        rules.rendering()
 
     def terminate(self):
         pygame.quit()
