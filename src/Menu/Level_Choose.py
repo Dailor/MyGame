@@ -1,4 +1,5 @@
 import pygame
+import sys
 from Utilities import text_writer
 from TextBox import ClickableTextBox
 from Configure import *
@@ -42,6 +43,7 @@ class LevelChoose:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 self.all_pages[self.page_now].update(event.pos)
                 self.arrows_group.update(event.pos)
+
         while len(self.events):
             event = self.events.pop()
             if event == -2:
@@ -68,3 +70,7 @@ class LevelChoose:
             self.arrows_group.draw(self.screen)
             pygame.time.delay(MENU_M_SEC)
             pygame.display.flip()
+
+    def terminate(self):
+        pygame.quit()
+        sys.exit()
