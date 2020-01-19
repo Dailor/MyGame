@@ -54,10 +54,10 @@ class GamePlayMain:
     def keyboard_events(self):
         key = pygame.key.get_pressed()
         if key[pygame.K_LEFT]:
-            self.player.append(MOVE_LEFT)
+            self.player.event_handler(MOVE_LEFT)
             self.background_group.update(">")
         elif key[pygame.K_RIGHT]:
-            self.player.append(MOVE_RIGHT)
+            self.player.event_handler(MOVE_RIGHT)
             self.background_group.update("<")
 
     def event_handler(self):
@@ -67,10 +67,12 @@ class GamePlayMain:
     def drawing(self):
         self.screen.fill((255, 255, 255))
         self.background_group.draw(self.screen)
+        self.player_gruop.draw(self.screen)
         pygame.display.flip()
 
     def rendering(self):
         self.running = True
+        clock = pygame.time.Clock()
         # camera = Camera()
         while self.running:
             self.event_handler()
