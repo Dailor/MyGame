@@ -1,11 +1,11 @@
 #### Character
-REGENERATION = None
-STAMINA_RECOVERY = None
+REGENERATION = 20
+STAMINA_RECOVERY = 20
 
-if REGENERATION is None:
-    raise Exception("Поставь значение регена хп \\src\\Configure_Gameplay")
+### Player
 
-if STAMINA_RECOVERY is None:
-    raise Exception("Поставь значение регена стамины \\src\\Configure_Gameplay")
+MAX_JUMP_H = None
+SPEED_X = 10
+SPEED_Y = 0
 
 

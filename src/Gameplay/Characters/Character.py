@@ -1,14 +1,6 @@
-from pygame.sprite import Sprite
+import pygame
 from Configure import *
-
-REGENERATION = None
-STAMINA_RECOVERY = None
-
-if REGENERATION is None:
-    raise Exception("Поставь значение регена хп \\src\\Character\\Character.py")
-
-if STAMINA_RECOVERY is None:
-    raise Exception("Поставь значение регена стамины \\src\\Character\\Character.py")
+from Configure_Gameplay import *
 
 
 class Stats:
@@ -45,10 +37,11 @@ class Stats:
         return self.hp
 
 
-class Character(Sprite):
-    def __init__(self, groups, *stats):
-        super(Sprite).__init__(*groups)
-        self.stats = Stats(*stats)
+class Character(pygame.sprite.Sprite):
+    def __init__(self, groups, hp, dmg, stamina, regeneration=None, start_weapon=None):
+        super().__init__(*groups)
+        self.stats = Stats(hp, dmg, stamina, regeneration=None, start_weapon=None)
+        self.events = list()
 
     def get_stats(self):
         return self.stats.get_stats()
@@ -62,4 +55,6 @@ class Character(Sprite):
 
     def to_damage(self, other_character):
         return other_character.take_dmg(self, other_character)
+
+
 

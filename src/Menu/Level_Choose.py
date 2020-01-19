@@ -3,6 +3,7 @@ import sys
 from Utilities import text_writer
 from TextBox import ClickableTextBox
 from Configure import *
+from GamePlayMain import GamePlayMain
 
 
 class LevelChoose:
@@ -52,13 +53,14 @@ class LevelChoose:
                     return False
                 else:
                     self.page_now -= 1
-
             elif event == -1:
                 if self.page_now == (len(LEVEL_CHOOSE_LEVELS) - 1):
                     continue
                 else:
                     self.page_now += 1
-
+            else:
+                level = GamePlayMain(self.screen)
+                level.rendering()
 
     def rendering(self):
         self.running = True
