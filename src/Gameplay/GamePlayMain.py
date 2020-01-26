@@ -68,6 +68,12 @@ class GamePlayMain:
         elif key[pygame.K_RIGHT]:
             self.player.event_handler(MOVE_RIGHT)
             self.background_group.update("<")
+        elif key[pygame.K_UP]:
+            self.player.event_handler(MOVE_UP)
+        elif key[pygame.K_f]:
+            self.player.event_handler(ATTACK)
+        elif key[pygame.K_d]:
+            self.player.event_handler(DODGE_ATTACK)
 
     def event_handler(self):
         self.pygame_events()
