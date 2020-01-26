@@ -18,7 +18,7 @@ def load_level(filename):
     return list(map(lambda x: x.ljust(max_width, '.'), level_map))
 
 
-def generate_level(level, gr):
+def generate_level(level, gr, clock):
     level = load_level(level)
     new_player, x, y = None, None, None
     for y in range(len(level)):
@@ -27,6 +27,6 @@ def generate_level(level, gr):
             if level[y][x] == 'g':
                 Tiles.GrassBlock(gr, pos)
             elif level[y][x] == '@':
-                new_player = Player(gr, pos)
+                new_player = Player(gr, pos, clock)
     # вернем игрока, а также размер поля в клетках
     return new_player, x, y

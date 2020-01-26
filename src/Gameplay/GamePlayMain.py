@@ -17,25 +17,31 @@ class Camera:
 
     # сдвинуть объект obj на смещение камеры
     def apply(self, obj):
+        if isinstance(obj, Player):
+            obj.pos_x += self.dx
+            obj.pos_y += self.dy
         obj.rect.x += self.dx
         obj.rect.y += self.dy
 
     # позиционировать камеру на объекте target
     def update(self, target):
-        self.dx = -(target.rect.x + target.rect.w // 2 - WIDTH // 2)
-        self.dy = -(target.rect.y + target.rect.h // 2 - HEIGHT // 2)
+        x, y = target.pos_x, target.pos_y
+
+        self.dx = -(x + target.rect.w / 2 - WIDTH / 2)
+        self.dy = -(y + target.rect.h / 2 - HEIGHT / 2)
 
 
 class GamePlayMain:
     def __init__(self, screen, level):
         self.screen = screen
-
+        self.clock_t = pygame.time.Clock()
+        self.clock = [0]
         self.all_tiles = pygame.sprite.Group()
-        self.player, x_max, y_max = generate_level(level, self.all_tiles)
+        self.player, x_max, y_max = generate_level(level, self.all_tiles, self.clock)
         x_max *= BLOCK_SIZE[0]
         self.background_group = pygame.sprite.Group()
-        self.background = ForrestBackgroundMain(self.screen, self.background_group, x_max)
-        self.background_front = ForrestBackgroundFront(self.screen, self.background_group, x_max)
+        self.background = ForrestBackgroundMain(self.screen, self.background_group, self.clock, x_max)
+        self.background_front = ForrestBackgroundFront(self.screen, self.background_group, self.clock, x_max)
 
     def terminate(self):
         sys.exit()
@@ -54,8 +60,9 @@ class GamePlayMain:
 
     def keyboard_events(self):
         key = pygame.key.get_pressed()
+        if key[pygame.K_ESCAPE]:
+            print(1)
         if key[pygame.K_LEFT]:
-            print(self.all_tiles)
             self.player.event_handler(MOVE_LEFT)
             self.background_group.update(">")
         elif key[pygame.K_RIGHT]:
@@ -71,7 +78,6 @@ class GamePlayMain:
         self.camera.update(self.player)
         for el in self.all_tiles:
             self.camera.apply(el)
-        pass
 
     def drawing(self):
         self.screen.fill((255, 255, 255))
@@ -81,8 +87,8 @@ class GamePlayMain:
 
     def rendering(self):
         self.running = True
-        self.clock = pygame.time.Clock()
         self.camera = Camera()
         while self.running:
+            self.clock[0] = self.clock_t.tick()
             self.event_handler()
             self.drawing()

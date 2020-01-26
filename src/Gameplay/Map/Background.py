@@ -4,8 +4,9 @@ from Configure_Map import *
 
 
 class Background(pygame.sprite.Sprite):
-    def __init__(self, screen, group, PATH, SIZE, SPEED, colorkey=None, x_max=None):
+    def __init__(self, screen, group, PATH, SIZE, SPEED, clock, colorkey=None, x_max=None):
         super().__init__(group)
+        self.clock = clock
         self.screen = screen
         self.PATH_BG = PATH
         self.BG_SIZE = SIZE
@@ -33,12 +34,17 @@ class Background(pygame.sprite.Sprite):
         self.right_img_x = self.BG_SIZE[0]
 
     def update(self, move, *args):
+        t = self.clock[0] / 1000
         if move == '>':
             dx = -self.BG_SPEED[0]
             dx_ = -self.main_bg_speed[0]
         elif move == '<':
             dx = self.BG_SPEED[0]
             dx_ = self.main_bg_speed[0]
+
+        dx *= t
+        dx_ *= t
+
         if self.x_now + dx_ < 0 or self.x_now + dx_ + self.BG_SIZE[0] > self.x_max:
             return
         else:
@@ -59,10 +65,10 @@ class Background(pygame.sprite.Sprite):
 
 
 class ForrestBackgroundMain(Background):
-    def __init__(self, screen, group, x_max=None):
-        super().__init__(screen, group, PATH_BG, BG_SIZE, BG_SPEED,None, x_max)
+    def __init__(self, screen, group, clock, x_max=None):
+        super().__init__(screen, group, PATH_BG, BG_SIZE, BG_SPEED, clock, None, x_max)
 
 
 class ForrestBackgroundFront(Background):
-    def __init__(self, screen, group, x_max=None):
-        super().__init__(screen, group, PATH_MF, MF_SIZE, MF_SPEED, (0, 0, 0), x_max)
+    def __init__(self, screen, group, clock, x_max=None):
+        super().__init__(screen, group, PATH_MF, MF_SIZE, MF_SPEED, clock, (0, 0, 0), x_max)
