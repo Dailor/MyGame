@@ -1,7 +1,10 @@
+from __future__ import absolute_import
 import pygame
 import sys
+
 from Menu import Menu
 from Configure import *
+
 
 class MainGame:
     def __init__(self, size):
@@ -10,7 +13,6 @@ class MainGame:
         self.screen = pygame.display.set_mode(self.SIZE)
         self.screen.fill(pygame.Color('white'))
         self.run = Menu(self.screen, self.SIZE)
-
 
     def render(self):
         while True:

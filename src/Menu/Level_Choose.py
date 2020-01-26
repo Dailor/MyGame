@@ -59,7 +59,7 @@ class LevelChoose:
                 else:
                     self.page_now += 1
             else:
-                level = GamePlayMain(self.screen)
+                level = GamePlayMain(self.screen, f"Level{event}")
                 level.rendering()
 
     def rendering(self):

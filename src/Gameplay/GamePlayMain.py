@@ -2,6 +2,9 @@ from Configure import *
 from Background import ForrestBackgroundMain, ForrestBackgroundFront, Background
 from CharacterEvents import *
 from Player import Player
+from Configure_Map import BLOCK_SIZE
+
+from Map import generate_level
 import sys
 import pygame
 
@@ -14,8 +17,6 @@ class Camera:
 
     # сдвинуть объект obj на смещение камеры
     def apply(self, obj):
-        if isinstance(obj, Background):
-            obj.update('>' if self.dx > 0 else '<')
         obj.rect.x += self.dx
         obj.rect.y += self.dy
 
@@ -26,15 +27,15 @@ class Camera:
 
 
 class GamePlayMain:
-    def __init__(self, screen):
+    def __init__(self, screen, level):
         self.screen = screen
 
+        self.all_tiles = pygame.sprite.Group()
+        self.player, x_max, y_max = generate_level(level, self.all_tiles)
+        x_max *= BLOCK_SIZE[0]
         self.background_group = pygame.sprite.Group()
-        self.background = ForrestBackgroundMain(self.screen, self.background_group)
-        self.background_front = ForrestBackgroundFront(self.screen, self.background_group)
-
-        self.player_gruop = pygame.sprite.Group()
-        self.player = Player(self.player_gruop, 100, 50, 50)
+        self.background = ForrestBackgroundMain(self.screen, self.background_group, x_max)
+        self.background_front = ForrestBackgroundFront(self.screen, self.background_group, x_max)
 
     def terminate(self):
         sys.exit()
@@ -54,6 +55,7 @@ class GamePlayMain:
     def keyboard_events(self):
         key = pygame.key.get_pressed()
         if key[pygame.K_LEFT]:
+            print(self.all_tiles)
             self.player.event_handler(MOVE_LEFT)
             self.background_group.update(">")
         elif key[pygame.K_RIGHT]:
@@ -63,20 +65,24 @@ class GamePlayMain:
     def event_handler(self):
         self.pygame_events()
         self.keyboard_events()
+        self.camera_events()
+
+    def camera_events(self):
+        self.camera.update(self.player)
+        for el in self.all_tiles:
+            self.camera.apply(el)
+        pass
 
     def drawing(self):
         self.screen.fill((255, 255, 255))
         self.background_group.draw(self.screen)
-        self.player_gruop.draw(self.screen)
+        self.all_tiles.draw(self.screen)
         pygame.display.flip()
 
     def rendering(self):
         self.running = True
-        clock = pygame.time.Clock()
-        # camera = Camera()
+        self.clock = pygame.time.Clock()
+        self.camera = Camera()
         while self.running:
             self.event_handler()
             self.drawing()
-            # camera.update(self.player)
-            # for el in self.background_group:
-            #     camera.apply(el)

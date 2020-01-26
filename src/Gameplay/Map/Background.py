@@ -12,6 +12,7 @@ class Background(pygame.sprite.Sprite):
         self.BG_SPEED = SPEED
         self.colorkey = colorkey
 
+        self.main_bg_speed = BG_SPEED
         self.x_now = 0
         self.x_max = sys.maxsize if x_max is None else x_max
 
@@ -34,12 +35,14 @@ class Background(pygame.sprite.Sprite):
     def update(self, move, *args):
         if move == '>':
             dx = -self.BG_SPEED[0]
+            dx_ = -self.main_bg_speed[0]
         elif move == '<':
             dx = self.BG_SPEED[0]
-        if self.x_now + dx < 0 or self.x_now + dx + self.BG_SIZE[0] > self.x_max:
+            dx_ = self.main_bg_speed[0]
+        if self.x_now + dx_ < 0 or self.x_now + dx_ + self.BG_SIZE[0] > self.x_max:
             return
         else:
-            self.x_now += dx
+            self.x_now += dx_
 
         self.left_img_x -= dx
         self.right_img_x -= dx
@@ -56,10 +59,10 @@ class Background(pygame.sprite.Sprite):
 
 
 class ForrestBackgroundMain(Background):
-    def __init__(self, screen, group):
-        super().__init__(screen, group, PATH_BG, BG_SIZE, BG_SPEED)
+    def __init__(self, screen, group, x_max=None):
+        super().__init__(screen, group, PATH_BG, BG_SIZE, BG_SPEED,None, x_max)
 
 
 class ForrestBackgroundFront(Background):
-    def __init__(self, screen, group):
-        super().__init__(screen, group, PATH_MF, MF_SIZE, MF_SPEED, (0, 0, 0))
+    def __init__(self, screen, group, x_max=None):
+        super().__init__(screen, group, PATH_MF, MF_SIZE, MF_SPEED, (0, 0, 0), x_max)

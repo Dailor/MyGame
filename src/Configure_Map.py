@@ -15,3 +15,13 @@ MF_SPEED = SPEED_X, 0
 PATH_BACKGROUNDS = 'data\Gameplay\Backgrounds\\forest'
 PATH_BG = os.path.join(PATH_BACKGROUNDS, 'background.png')
 PATH_MF = os.path.join(PATH_BACKGROUNDS, "middleground.png")
+
+BLOCK_SIZE = 50, 50
+BIG_BLOCK_SIZE = 100, 100
+
+TILES_PATH = "Gameplay/Tiles/"
+
+GRASS_BLOCK = "grass_block.png"
+BIG_STONE = "big_stone.png"
+SMALL_STONE = "small_stone.png"
+HOUSE = "house.png"
