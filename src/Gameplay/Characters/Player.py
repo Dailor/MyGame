@@ -118,9 +118,15 @@ class Player(pygame.sprite.Sprite):
         if event == MOVE_LEFT:
             self.pos_x -= SPEED_X * time
             self.pos_rel_x -= SPEED_X * time
+            self.is_right = False
+            self.is_left = True
+            self.stay_ = False
         elif event == MOVE_RIGHT:
             self.pos_x += SPEED_X * time
             self.pos_rel_x += SPEED_X * time
+            self.is_right = True
+            self.is_left = False
+            self.stay_ = False
         elif event == MOVE_UP and self.jump_enable is False:
             self.jump_enable = True
             self.previous_y = self.rect.y
@@ -132,6 +138,8 @@ class Player(pygame.sprite.Sprite):
         elif event == ATTACK and self.attack is False:
             self.attack = True
             self.stay_ = False
+        else:
+            self.stay_ = True
         self.rect.x = self.pos_x
         self.render()
 
