@@ -54,11 +54,11 @@ class Player(pygame.sprite.Sprite):
         self.rect.x, self.rect.y = self.pos_x * SIZE_CONST, self.pos_y * SIZE_CONST
         self.pos_x, self.pos_y = self.rect.x, self.rect.y
         self.pos_rel_x, self.pos_rel_x = self.pos_x, self.pos_y
-        self.image.fill((255, 20, 0))
+        # self.image.fill((255, 20, 0))
 
 
         self.jump_enable = False
-        self.all_animations()
+        # self.all_animations()
 
         self.fps = 0
         self.walkRight = [load_image(['Gameplay/Character/run', 'adventurer-run-00.png']),
