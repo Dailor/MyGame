@@ -10,17 +10,18 @@ import pygame
 
 class Camera:
     # зададим начальный сдвиг камеры
-    def __init__(self):
+    def __init__(self, bg):
+        self.bg = bg
         self.dx = 0
         self.dy = 0
 
     # сдвинуть объект obj на смещение камеры
     def apply(self, obj):
-        if isinstance(obj, Player):
-            obj.pos_x += self.dx
-            obj.pos_y += self.dy
-        obj.rect.x += self.dx
-        obj.rect.y += self.dy
+        obj.pos_x += self.dx
+        obj.pos_y += self.dy
+
+        obj.rect.x = obj.pos_x
+        obj.rect.y = obj.pos_y
 
     # позиционировать камеру на объекте target
     def update(self, target):
@@ -37,7 +38,6 @@ class GamePlayMain:
         self.clock = [0]
         self.all_tiles = pygame.sprite.Group()
         self.player, x_max, y_max = generate_level(level, self.all_tiles, self.clock)
-        x_max *= BLOCK_SIZE[0]
         self.background_group = pygame.sprite.Group()
         self.background = ForrestBackgroundMain(self.screen, self.background_group, self.clock, x_max)
         self.background_front = ForrestBackgroundFront(self.screen, self.background_group, self.clock, x_max)
@@ -91,7 +91,7 @@ class GamePlayMain:
 
     def rendering(self):
         self.running = True
-        self.camera = Camera()
+        self.camera = Camera(self.background_front)
         while self.running:
             self.clock[0] = self.clock_t.tick()
             self.event_handler()

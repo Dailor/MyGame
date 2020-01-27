@@ -28,6 +28,9 @@ def generate_level(level, gr, clock):
             if level[y][x] == 'g':
                 Tiles.GrassBlock(gr, pos)
             elif level[y][x] == '@':
-                new_player = Player(gr, pos, clock)
-    # вернем игрока, а также размер поля в клетках
-    return new_player, x, y
+                pos_player = x, y
+                # вернем игрока, а также размер поля в клетках
+    x_max = x * BLOCK_SIZE[0]
+    y_max = y * BLOCK_SIZE[1]
+    new_player = Player(gr, pos_player, clock, x_max)
+    return new_player, x_max, y_max

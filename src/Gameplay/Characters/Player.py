@@ -1,7 +1,7 @@
 from Character import Character
 from CharacterEvents import *
 from Configure_Gameplay import *
-from Utilities import load_image
+from Utilities import load_image_v2
 from Configure import SIZE
 import pygame
 import threading
@@ -42,66 +42,38 @@ class PlayerEvents(threading.Thread):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, gr, pos, clock, *args):
+    
+
+    def __init__(self, gr, pos, clock, x_max, *args):
         super().__init__(gr)
+        self.x_max = x_max
         self.clock = clock
         self.pos_x, self.pos_y = pos
 
-        self.stay = load_image(['Gameplay/Character/idle', 'adventurer-idle-00.png'])
+        self.stay = load_image_v2(['Gameplay/Character/idle', 'adventurer-idle-00.png'], PLAYER_SIZE)
         self.image = self.stay
         self.rect = self.image.get_rect()
 
         self.rect.x, self.rect.y = self.pos_x * SIZE_CONST, self.pos_y * SIZE_CONST
         self.pos_x, self.pos_y = self.rect.x, self.rect.y
         self.pos_rel_x, self.pos_rel_x = self.pos_x, self.pos_y
-        # self.image.fill((255, 20, 0))
-
 
         self.jump_enable = False
-        # self.all_animations()
 
         self.fps = 0
-        self.walkRight = [load_image(['Gameplay/Character/run', 'adventurer-run-00.png']),
-                          load_image(['Gameplay/Character/run', 'adventurer-run-01.png']),
-                          load_image(['Gameplay/Character/run', 'adventurer-run-02.png']),
-                          load_image(['Gameplay/Character/run', 'adventurer-run-03.png']),
-                          load_image(['Gameplay/Character/run', 'adventurer-run-04.png']),
-                          load_image(['Gameplay/Character/run', 'adventurer-run-05.png'])]
+        self.walkRight = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_walkRight]
 
-        self.walkLeft = [load_image(['Gameplay/Character/run', 'left-00.png']),
-                         load_image(['Gameplay/Character/run', 'left-01.png']),
-                         load_image(['Gameplay/Character/run', 'left-02.png']),
-                         load_image(['Gameplay/Character/run', 'left-03.png']),
-                         load_image(['Gameplay/Character/run', 'left-04.png']),
-                         load_image(['Gameplay/Character/run', 'left-05.png'])]
+        self.walkLeft = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_walkLeft]
 
-        self.attackLeft = [load_image(['Gameplay/Character/default attack', 'left-00.png']),
-                           load_image(['Gameplay/Character/default attack', 'left-01.png']),
-                           load_image(['Gameplay/Character/default attack', 'left-02.png']),
-                           load_image(['Gameplay/Character/default attack', 'left-03.png']),
-                           load_image(['Gameplay/Character/default attack', 'left-04.png']),
-                           load_image(['Gameplay/Character/default attack', 'left-05.png'])]
+        self.attackLeft = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_attackLeft]
 
-        self.attackRight = [load_image(['Gameplay/Character/default attack', 'adventurer-attack2-00.png']),
-                            load_image(['Gameplay/Character/default attack', 'adventurer-attack2-01.png']),
-                            load_image(['Gameplay/Character/default attack', 'adventurer-attack2-02.png']),
-                            load_image(['Gameplay/Character/default attack', 'adventurer-attack2-03.png']),
-                            load_image(['Gameplay/Character/default attack', 'adventurer-attack2-04.png']),
-                            load_image(['Gameplay/Character/default attack', 'adventurer-attack2-05.png'])]
+        self.attackRight = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_attackRight]
 
-        self.airLeft = [load_image(['Gameplay/Character/air attack', 'left-00.png']),
-                        load_image(['Gameplay/Character/air attack', 'left-01.png']),
-                        load_image(['Gameplay/Character/air attack', 'left-02.png']),
-                        load_image(['Gameplay/Character/air attack', 'left-03.png'])]
+        self.airLeft = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_airLeft]
 
-        self.airRight = [load_image(['Gameplay/Character/air attack', 'adventurer-air-attack1-00.png']),
-                         load_image(['Gameplay/Character/air attack', 'adventurer-air-attack1-01.png']),
-                         load_image(['Gameplay/Character/air attack', 'adventurer-air-attack1-02.png']),
-                         load_image(['Gameplay/Character/air attack', 'adventurer-air-attack1-03.png'])]
+        self.airRight = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_airRight]
 
-        self.stay_images = [load_image(['Gameplay/Character/idle', 'adventurer-idle-00.png']),
-                            load_image(['Gameplay/Character/idle', 'adventurer-idle-01.png']),
-                            load_image(['Gameplay/Character/idle', 'adventurer-idle-02.png'])]
+        self.stay_images = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_stay_images]
 
         self.is_right = False
         self.is_left = False
@@ -114,16 +86,17 @@ class Player(pygame.sprite.Sprite):
 
     def event_handler(self, event):
         time = self.clock[0] / 1000
-        print(time)
         if event == MOVE_LEFT:
-            self.pos_x -= SPEED_X * time
-            self.pos_rel_x -= SPEED_X * time
+            dx = SPEED_X * time
+            self.pos_x -= dx
+            self.pos_rel_x -= dx
             self.is_right = False
             self.is_left = True
             self.stay_ = False
         elif event == MOVE_RIGHT:
-            self.pos_x += SPEED_X * time
-            self.pos_rel_x += SPEED_X * time
+            dx = SPEED_X * time
+            self.pos_x += dx
+            self.pos_rel_x += dx
             self.is_right = True
             self.is_left = False
             self.stay_ = False

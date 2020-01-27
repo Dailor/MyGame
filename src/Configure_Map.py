@@ -16,7 +16,7 @@ PATH_BACKGROUNDS = 'data\Gameplay\Backgrounds\\forest'
 PATH_BG = os.path.join(PATH_BACKGROUNDS, 'background.png')
 PATH_MF = os.path.join(PATH_BACKGROUNDS, "middleground.png")
 
-BLOCK_SIZE = 50, 50
+BLOCK_SIZE = 40, 40
 BIG_BLOCK_SIZE = 100, 100
 
 TILES_PATH = "Gameplay/Tiles/"
