@@ -99,7 +99,7 @@ class Player(pygame.sprite.Sprite):
                          load_image(['Gameplay/Character/air attack', 'adventurer-air-attack1-02.png']),
                          load_image(['Gameplay/Character/air attack', 'adventurer-air-attack1-03.png'])]
 
-        self.stay_images = [load_image(['Gameplay/Character/idle1', 'adventurer-idle-00.png']),
+        self.stay_images = [load_image(['Gameplay/Character/idle', 'adventurer-idle-00.png']),
                             load_image(['Gameplay/Character/idle', 'adventurer-idle-01.png']),
                             load_image(['Gameplay/Character/idle', 'adventurer-idle-02.png'])]
 
