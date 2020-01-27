@@ -47,17 +47,19 @@ class Player(pygame.sprite.Sprite):
         self.clock = clock
         self.pos_x, self.pos_y = pos
 
-        self.stay = load_image(['Gameplay/Character/idle1', 'adventurer-idle-00.png'])
+        self.stay = load_image(['Gameplay/Character/idle', 'adventurer-idle-00.png'])
         self.image = self.stay
         self.rect = self.image.get_rect()
 
         self.rect.x, self.rect.y = self.pos_x * SIZE_CONST, self.pos_y * SIZE_CONST
         self.pos_x, self.pos_y = self.rect.x, self.rect.y
-        
+        self.pos_rel_x, self.pos_rel_x = self.pos_x, self.pos_y
+        self.image.fill((255, 20, 0))
 
 
         self.jump_enable = False
-        
+        self.all_animations()
+
         self.fps = 0
         self.walkRight = [load_image(['Gameplay/Character/run', 'adventurer-run-00.png']),
                           load_image(['Gameplay/Character/run', 'adventurer-run-01.png']),
@@ -98,8 +100,8 @@ class Player(pygame.sprite.Sprite):
                          load_image(['Gameplay/Character/air attack', 'adventurer-air-attack1-03.png'])]
 
         self.stay_images = [load_image(['Gameplay/Character/idle1', 'adventurer-idle-00.png']),
-                            load_image(['Gameplay/Character/idle1', 'adventurer-idle-01.png']),
-                            load_image(['Gameplay/Character/idle1', 'adventurer-idle-02.png'])]
+                            load_image(['Gameplay/Character/idle', 'adventurer-idle-01.png']),
+                            load_image(['Gameplay/Character/idle', 'adventurer-idle-02.png'])]
 
         self.is_right = False
         self.is_left = False
@@ -115,24 +117,23 @@ class Player(pygame.sprite.Sprite):
         print(time)
         if event == MOVE_LEFT:
             self.pos_x -= SPEED_X * time
+            self.pos_rel_x -= SPEED_X * time
         elif event == MOVE_RIGHT:
             self.pos_x += SPEED_X * time
-        self.rect.x = self.pos_x
-        #print(self.pos_x)
+            self.pos_rel_x += SPEED_X * time
         elif event == MOVE_UP and self.jump_enable is False:
             self.jump_enable = True
             self.previous_y = self.rect.y
             self.time_j = 0
             self.clock.tick()
-        elif event == ATTACK:
-            self.attack = True
-            self.stay_ = False
-        elif event == DODGE_ATTACK:
+        elif event == ATTACK and self.jump_enable is True:
             self.air_attack = True
             self.stay_ = False
-
+        elif event == ATTACK and self.attack is False:
+            self.attack = True
+            self.stay_ = False
+        self.rect.x = self.pos_x
         self.render()
-        # print(self.is_right, self.is_left)
 
     def render(self):
         if self.fps + 1 >= 30:
@@ -178,4 +179,3 @@ class Player(pygame.sprite.Sprite):
         if self.stay_:
             self.image = self.stay_images[self.for_stay // 5]
             self.for_stay += 1
-        # print(self.for_stay)

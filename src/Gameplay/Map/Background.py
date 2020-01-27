@@ -4,7 +4,7 @@ from Configure_Map import *
 
 
 class Background(pygame.sprite.Sprite):
-    def __init__(self, screen, group, PATH, SIZE, SPEED, clock, colorkey=None, x_max=None):
+    def __init__(self, screen, group, PATH, SIZE, SPEED, clock, colorkey=None, x_max=None, x_now=None):
         super().__init__(group)
         self.clock = clock
         self.screen = screen

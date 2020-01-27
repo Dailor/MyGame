@@ -9,7 +9,7 @@ def load_level(filename):
     filename = "data/Gameplay/Levels/" + filename
     # читаем уровень, убирая символы перевода строки
     with open(filename, 'r') as mapFile:
-        level_map = [line.strip().replace(" ", '.') for line in mapFile]
+        level_map = [line.strip('\n').replace(" ", '.') for line in mapFile]
 
     # и подсчитываем максимальную длину
     max_width = max(map(len, level_map))
@@ -21,6 +21,7 @@ def load_level(filename):
 def generate_level(level, gr, clock):
     level = load_level(level)
     new_player, x, y = None, None, None
+    print('\n'.join(level))
     for y in range(len(level)):
         for x in range(len(level[y])):
             pos = x, y

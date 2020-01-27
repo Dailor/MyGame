@@ -3,7 +3,6 @@ from Background import ForrestBackgroundMain, ForrestBackgroundFront, Background
 from CharacterEvents import *
 from Player import Player
 from Configure_Map import BLOCK_SIZE
-
 from Map import generate_level
 import sys
 import pygame
@@ -72,8 +71,7 @@ class GamePlayMain:
             self.player.event_handler(MOVE_UP)
         elif key[pygame.K_f]:
             self.player.event_handler(ATTACK)
-        elif key[pygame.K_d]:
-            self.player.event_handler(DODGE_ATTACK)
+
 
     def event_handler(self):
         self.pygame_events()
