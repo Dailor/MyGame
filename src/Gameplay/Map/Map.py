@@ -3,6 +3,7 @@ from Configure import *
 from Configure_Map import *
 import Tiles
 from Player import Player
+from Bee import Bee
 
 
 def load_level(filename):
@@ -30,7 +31,10 @@ def generate_level(level, gr, clock):
             elif level[y][x] == '@':
                 pos_player = x, y
                 # вернем игрока, а также размер поля в клетках
+            elif level[y][x] == 'a':
+                pos_bee = x, y
     x_max = x * BLOCK_SIZE[0]
     y_max = y * BLOCK_SIZE[1]
     new_player = Player(gr, pos_player, clock, x_max)
-    return new_player, x_max, y_max
+    bee = Bee(gr, pos_bee)
+    return new_player, bee, x_max, y_max
