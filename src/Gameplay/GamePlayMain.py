@@ -60,6 +60,7 @@ class GamePlayMain:
 
     def keyboard_events(self):
         key = pygame.key.get_pressed()
+        self.bee.stay()
         if key[pygame.K_ESCAPE]:
             print(1)
         if key[pygame.K_LEFT]:
