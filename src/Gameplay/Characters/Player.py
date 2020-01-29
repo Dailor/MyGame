@@ -28,7 +28,7 @@ def hard_difficult():
 #         self.rect.x = 20
 #         self.rect.y = SIZE[1] // 2
 
-SIZE_CONST = 50
+SIZE_CONST = 37
 
 
 class PlayerEvents(threading.Thread):
