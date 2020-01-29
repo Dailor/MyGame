@@ -42,7 +42,6 @@ class PlayerEvents(threading.Thread):
 
 
 class Player(pygame.sprite.Sprite):
-    
 
     def __init__(self, gr, pos, clock, x_max, *args):
         super().__init__(gr)
@@ -83,6 +82,7 @@ class Player(pygame.sprite.Sprite):
         self.for_attack = 0
         self.for_air_attack = 0
         self.for_stay = 0
+        self.Jump_Count = 10
 
     def event_handler(self, event):
         time = self.clock[0] / 1000
@@ -102,9 +102,6 @@ class Player(pygame.sprite.Sprite):
             self.stay_ = False
         elif event == MOVE_UP and self.jump_enable is False:
             self.jump_enable = True
-            self.previous_y = self.rect.y
-            self.time_j = 0
-            self.clock.tick()
         elif event == ATTACK and self.jump_enable is True:
             self.air_attack = True
             self.stay_ = False
@@ -160,3 +157,14 @@ class Player(pygame.sprite.Sprite):
         if self.stay_:
             self.image = self.stay_images[self.for_stay // 5]
             self.for_stay += 1
+
+        if self.jump_enable is True:
+            if self.Jump_Count >= -10:
+                if self.Jump_Count < 0:
+                    self.pos_y += (self.Jump_Count ** 2) / 2
+                else:
+                    self.pos_y -= (self.Jump_Count ** 2) / 2
+                self.Jump_Count -= 1
+            else:
+                self.jump_enable = False
+                self.Jump_Count = 10

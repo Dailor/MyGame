@@ -6,4 +6,5 @@ JUMP = pygame.mixer.music.load('data/Gameplay/sound/jump.mp3')
 HURT = pygame.mixer.music.load('data/Gameplay/sound/hurt.mp3')
 ENEMY_DEATH = pygame.mixer.music.load('data/Gameplay/sound/enemy-death.mp3')
 CHEST = pygame.mixer.music.load('data/Gameplay/sound/chest.mp3')
+#  data/Gameplay/sound/enchanted_forest
 

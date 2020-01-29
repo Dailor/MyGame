@@ -16,6 +16,8 @@ class MainGame:
 
     def render(self):
         while True:
+            pygame.mixer.music.load('data/Gameplay/sound/enchanted_forest.mp3')
+            pygame.mixer.music.play()
             self.run = self.run.render()
             if self.run is False:
                 break
