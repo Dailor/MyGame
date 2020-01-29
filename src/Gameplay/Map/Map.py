@@ -64,6 +64,10 @@ def generate_level(level, gr, clock):
                 Tiles.Tree(gr, pos)
             elif level[y][x] == 'k':
                 Tiles.Bush(gr, pos)
+            elif level[y][x] == 'r':
+                Tiles.Rock(gr, pos)
+            elif level[y][x] == 'c':
+                Tiles.Door(gr, pos)
     x_max = x * BLOCK_SIZE[0]
     y_max = y * BLOCK_SIZE[1]
     new_player = Player(gr, pos_player, clock, x_max)

@@ -50,3 +50,58 @@ class Bush(Tile):
 class Tree(Tile):
     def __init__(self, groups, pos):
         super().__init__(groups, BLOCK_SIZE, pos, TREE)
+
+
+class Rock(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, ROCK)
+
+
+class Door(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, DOOR)
+
+
+class CrankDown(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, CRANK_DOWN)
+
+
+class CrankUp(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, CRANK_UP)
+
+
+class FaceBlock(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, FACE_BLOCK)
+
+
+class Shrooms(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, SHROOMS)
+
+
+class Sign(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, SIGN)
+
+
+class Skulls(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, SKULLS)
+
+
+class Spikes(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, SPIKES)
+
+
+class SpikesSkull(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, SPIKES_SKULL)
+
+
+class SpikesTop(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, SPIKES_TOP)
