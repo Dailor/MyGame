@@ -8,6 +8,7 @@ from Map import generate_level, slugs, bees, piranhas
 import sys
 import pygame
 from Sounds import *
+from Pause import Pause
 
 
 class Camera:
@@ -43,6 +44,7 @@ class GamePlayMain:
         self.background_group = pygame.sprite.Group()
         self.background = ForrestBackgroundMain(self.screen, self.background_group, self.clock, x_max)
         self.background_front = ForrestBackgroundFront(self.screen, self.background_group, self.clock, x_max)
+        self.ifpause = False
 
     def terminate(self):
         sys.exit()
@@ -55,9 +57,9 @@ class GamePlayMain:
             if event.type == pygame.KEYDOWN:
                 key = event.key
                 if key == pygame.K_ESCAPE:
-                    """
-                    ПАУЗА                                        
-                    """
+                    # print('ok')
+                    self.ifpause = True
+                    self.pause()
 
     def keyboard_events(self):
         key = pygame.key.get_pressed()
@@ -111,3 +113,6 @@ class GamePlayMain:
             self.clock[0] = self.clock_t.tick()
             self.event_handler()
             self.drawing()
+
+    def pause(self):
+        Pause(self.screen)

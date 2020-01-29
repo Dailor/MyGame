@@ -12,6 +12,13 @@ FONT_SIZE_MENU = 50
 DELTA_MENU = (0, 70)
 COORDS_TEXT_MENU = (80, 107)
 
+#### Pause
+PAUSE_TEXT = ["ПРОДОЛЖИТЬ", "ВЫХОД"]
+PAUSE_M_SEC = 100
+FONT_SIZE_PAUSE = 50
+DELTA_PAUSE = (0, 70)
+COORDS_TEXT_PAUSE = (80, 107)
+
 #### RULES
 with open('data/Menu/RULES_TEXT', encoding='utf-8') as f:
     RULES_TEXT = f.read().split('\n')
