@@ -60,6 +60,10 @@ def generate_level(level, gr, clock):
                 piranhas.append(piranha)
             elif level[y][x] == 'b':
                 Tiles.House(gr, pos)
+            elif level[y][x] == 't':
+                Tiles.Tree(gr, pos)
+            elif level[y][x] == 'k':
+                Tiles.Bush(gr, pos)
     x_max = x * BLOCK_SIZE[0]
     y_max = y * BLOCK_SIZE[1]
     new_player = Player(gr, pos_player, clock, x_max)

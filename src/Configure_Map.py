@@ -27,3 +27,5 @@ SMALL_STONE = "small_stone.png"
 HOUSE = "house.png"
 DIRTY_BLOCK = 'block.png'
 PLATFORM = 'small-platform.png'
+BUSH = 'bush.png'
+TREE = 'tree.png'
