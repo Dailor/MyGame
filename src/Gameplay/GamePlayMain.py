@@ -7,6 +7,7 @@ from Bee import Bee
 from Map import generate_level, slugs, bees, piranhas
 import sys
 import pygame
+from Sounds import *
 
 
 class Camera:
@@ -77,10 +78,15 @@ class GamePlayMain:
             self.player.event_handler(MOVE_RIGHT)
             self.background_group.update("<")
         elif key[pygame.K_UP]:
+            jump_music()
             self.player.event_handler(MOVE_UP)
+            self.clock_t.tick(40)
+            background_music()
         elif key[pygame.K_f]:
+            hurt_music()
             self.player.event_handler(ATTACK)
-
+            self.clock_t.tick(40)
+            background_music()
 
     def event_handler(self):
         self.pygame_events()
