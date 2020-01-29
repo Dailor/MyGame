@@ -32,5 +32,8 @@ class Dirty(Tile):
         super().__init__(groups, BLOCK_SIZE, pos, DIRTY_BLOCK)
 
 
+class Platform(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, PLATFORM)
 
 

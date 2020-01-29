@@ -4,7 +4,7 @@ from CharacterEvents import *
 from Player import Player
 from Configure_Map import BLOCK_SIZE
 from Bee import Bee
-from Map import generate_level, slugs, bees
+from Map import generate_level, slugs, bees, piranhas
 import sys
 import pygame
 
@@ -66,6 +66,8 @@ class GamePlayMain:
             i.stay()
         for j in bees:
             j.stay()
+        for z in piranhas:
+            z.stay()
         if key[pygame.K_ESCAPE]:
             print(1)
         if key[pygame.K_LEFT]:

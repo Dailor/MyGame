@@ -5,9 +5,11 @@ import Tiles
 from Player import Player
 from Bee import Bee
 from Slug import Slug
+from Piranha_Plant import PiranhaPlant
 
 slugs = []
 bees = []
+piranhas = []
 
 
 def load_level(filename):
@@ -50,6 +52,12 @@ def generate_level(level, gr, clock):
                 pos_slug = x, y
                 slug = Slug(gr, pos_slug)
                 slugs.append(slug)
+            elif level[y][x] == 'p':
+                Tiles.Platform(gr, pos)
+            elif level[y][x] == 'h':
+                pos_piranha = x, y
+                piranha = PiranhaPlant(gr, pos_piranha)
+                piranhas.append(piranha)
     x_max = x * BLOCK_SIZE[0]
     y_max = y * BLOCK_SIZE[1]
     new_player = Player(gr, pos_player, clock, x_max)
