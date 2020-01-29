@@ -1,6 +1,7 @@
 import pygame
-from Utilities import load_image
+
 from Configure_Map import *
+from Utilities import load_image
 
 
 class Tile(pygame.sprite.Sprite):
@@ -23,4 +24,13 @@ class GrassBlock(Tile):
 
 class SmallStoneBlock(Tile):
     def __init__(self, groups, pos):
-        super.__init__(groups, BLOCK_SIZE, pos, SMALL_STONE)
+        super().__init__(groups, BLOCK_SIZE, pos, SMALL_STONE)
+
+
+class Dirty(Tile):
+    def __init__(self, groups, pos):
+        super().__init__(groups, BLOCK_SIZE, pos, DIRTY_BLOCK)
+
+
+
+

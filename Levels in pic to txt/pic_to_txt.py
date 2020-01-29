@@ -3,15 +3,15 @@ from PIL import Image
 sprites = dict()
 sprites[(255, 255, 255)] = '.'
 sprites[(0, 0, 0)] = 'h'
-sprites[(34, 177, 76)] = 'g'
-sprites[(185, 122, 87)] = 'd'
-sprites[(127, 127, 127)] = 's'
+sprites[(34, 177, 76)] = 'g'  # grass
+sprites[(185, 122, 87)] = 'd'  # dirty
+sprites[(127, 127, 127)] = 's'  # stone
 sprites[(237, 28, 36)] = "u"  # улитка
 sprites[(255, 242, 0)] = 'o'  # оса
 sprites[(143, 113, 48)] = 'p'  # Платформа
 sprites[(163, 73, 164)] = 's'  # Шипы
 sprites[(0, 162, 232)] = 'c'  # сундук
-sprites[(15, 240, 223)] = '@' # Player
+sprites[(15, 240, 223)] = '@'  # Player
 
 print("Введите название файла")
 name = input()

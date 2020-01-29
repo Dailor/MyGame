@@ -23,7 +23,7 @@ Piranha_Plant_Attack = [load_image(['Gameplay/Enemies/piranha-plant-attack', 'pi
                         load_image(['Gameplay/Enemies/piranha-plant-attack', 'piranha-plant-attack-3.png']),
                         load_image(['Gameplay/Enemies/piranha-plant-attack', 'piranha-plant-attack-4.png'])]
 
-Slug = [load_image(['Gameplay/Enemies/slug', 'slug-1.png']),
+Slug_stay = [load_image(['Gameplay/Enemies/slug', 'slug-1.png']),
         load_image(['Gameplay/Enemies/slug', 'slug-2.png']),
         load_image(['Gameplay/Enemies/slug', 'slug-3.png']),
         load_image(['Gameplay/Enemies/slug', 'slug-4.png'])]

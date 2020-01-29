@@ -4,10 +4,14 @@ from Configure_Map import *
 import Tiles
 from Player import Player
 from Bee import Bee
+from Slug import Slug
+
+slugs = []
+bees = []
 
 
 def load_level(filename):
-    filename = "data/Gameplay/Levels/" + filename
+    filename = "data/Gameplay/Levels/" + filename + '.txt'
     # читаем уровень, убирая символы перевода строки
     with open(filename, 'r') as mapFile:
         level_map = [line.strip('\n').replace(" ", '.') for line in mapFile]
@@ -22,6 +26,9 @@ def load_level(filename):
 def generate_level(level, gr, clock):
     level = load_level(level)
     new_player, x, y = None, None, None
+    pos_bee = None
+    pos_player = None
+    pos_slug = None
     print('\n'.join(level))
     for y in range(len(level)):
         for x in range(len(level[y])):
@@ -31,10 +38,20 @@ def generate_level(level, gr, clock):
             elif level[y][x] == '@':
                 pos_player = x, y
                 # вернем игрока, а также размер поля в клетках
-            elif level[y][x] == 'a':
+            elif level[y][x] == 'o':
                 pos_bee = x, y
+                bee = Bee(gr, pos_bee)
+                bees.append(bee)
+            elif level[y][x] == 's':
+                Tiles.SmallStoneBlock(gr, pos)
+            elif level[y][x] == 'd':
+                Tiles.Dirty(gr, pos)
+            elif level[y][x] == 'u':
+                pos_slug = x, y
+                slug = Slug(gr, pos_slug)
+                slugs.append(slug)
     x_max = x * BLOCK_SIZE[0]
     y_max = y * BLOCK_SIZE[1]
     new_player = Player(gr, pos_player, clock, x_max)
-    bee = Bee(gr, pos_bee)
-    return new_player, bee, x_max, y_max
+    # slug = Slug(gr, pos_slug)
+    return new_player, x_max, y_max

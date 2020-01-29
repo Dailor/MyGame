@@ -25,3 +25,4 @@ GRASS_BLOCK = "grass_block.png"
 BIG_STONE = "big_stone.png"
 SMALL_STONE = "small_stone.png"
 HOUSE = "house.png"
+DIRTY_BLOCK = 'block.png'
