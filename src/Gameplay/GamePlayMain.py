@@ -9,6 +9,8 @@ import sys
 import pygame
 from Sounds import *
 from Pause import Pause
+from Utilities import load_image_v2
+from Configure_Gameplay import *
 
 
 class Camera:
@@ -44,7 +46,23 @@ class GamePlayMain:
         self.background_group = pygame.sprite.Group()
         self.background = ForrestBackgroundMain(self.screen, self.background_group, self.clock, x_max)
         self.background_front = ForrestBackgroundFront(self.screen, self.background_group, self.clock, x_max)
-        self.ifpause = False
+        self.jump = False
+        self.jump_count = 10
+        self.fps = 0
+        self.walkRight = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_walkRight]
+
+        self.walkLeft = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_walkLeft]
+
+        self.attackLeft = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_attackLeft]
+
+        self.attackRight = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_attackRight]
+
+        self.airLeft = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_airLeft]
+
+        self.airRight = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_airRight]
+
+        self.stay_images = [load_image_v2(path, PLAYER_SIZE) for path in ANIM_stay_images]
+        self.stay = load_image_v2(['Gameplay/Character/idle', 'adventurer-idle-00.png'], PLAYER_SIZE)
 
     def terminate(self):
         sys.exit()
@@ -81,6 +99,7 @@ class GamePlayMain:
             self.background_group.update("<")
         elif key[pygame.K_UP]:
             jump_music()
+            self.jump = True
             self.player.event_handler(MOVE_UP)
             self.clock_t.tick(40)
             background_music()
@@ -89,8 +108,11 @@ class GamePlayMain:
             self.player.event_handler(ATTACK)
             self.clock_t.tick(40)
             background_music()
+        self.event_handler()
 
     def event_handler(self):
+        if self.jump is True:
+            pass
         self.pygame_events()
         self.keyboard_events()
         self.camera_events()
