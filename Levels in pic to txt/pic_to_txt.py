@@ -2,7 +2,8 @@ from PIL import Image
 
 sprites = dict()
 sprites[(255, 255, 255)] = '.'
-sprites[(0, 0, 0)] = 'h'
+sprites[(0, 0, 0)] = 'h'  # House
+############## "e" Piranha
 sprites[(34, 177, 76)] = 'g'  # grass
 sprites[(185, 122, 87)] = 'd'  # dirty
 sprites[(127, 127, 127)] = 's'  # stone

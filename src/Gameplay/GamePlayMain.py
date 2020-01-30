@@ -4,6 +4,7 @@ from CharacterEvents import *
 from Player import Player
 from Configure_Map import BLOCK_SIZE
 from Bee import Bee
+import Tiles
 from Map import generate_level, slugs, bees, piranhas
 import sys
 import pygame
@@ -72,7 +73,7 @@ class GamePlayMain:
         for z in piranhas:
             z.stay()
         if key[pygame.K_ESCAPE]:
-            print(1)
+            print(pygame.sprite.spritecollide(self.player, self.all_tiles, False))
         if key[pygame.K_LEFT]:
             self.player.event_handler(MOVE_LEFT)
             self.background_group.update(">")
@@ -93,6 +94,7 @@ class GamePlayMain:
     def event_handler(self):
         self.pygame_events()
         self.keyboard_events()
+        self.player.render()
         self.camera_events()
 
     def camera_events(self):
@@ -108,11 +110,23 @@ class GamePlayMain:
 
     def rendering(self):
         self.running = True
+        self.passed_level = False
         self.camera = Camera(self.background_front)
         while self.running:
             self.clock[0] = self.clock_t.tick()
             self.event_handler()
+            if any(isinstance(t, Tiles.House) for t in pygame.sprite.spritecollide(self.player, self.all_tiles, False)):
+                self.running = False
+                #self.passed_level = True
+                break
             self.drawing()
+        if self.passed_level:
+            """
+            Тут победа
+            """
+            pass
+        else:
+            return
 
     def pause(self):
         Pause(self.screen)

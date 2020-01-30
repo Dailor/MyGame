@@ -111,7 +111,7 @@ class Player(pygame.sprite.Sprite):
         else:
             self.stay_ = True
         self.rect.x = self.pos_x
-        self.render()
+
 
     def render(self):
         if self.fps + 1 >= 30:

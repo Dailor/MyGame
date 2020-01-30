@@ -13,7 +13,7 @@ piranhas = []
 
 
 def load_level(filename):
-    filename = "data/Gameplay/Levels/" + filename + '.txt'
+    filename = "data/Gameplay/Levels/" + filename
     # читаем уровень, убирая символы перевода строки
     with open(filename, 'r') as mapFile:
         level_map = [line.strip('\n').replace(" ", '.') for line in mapFile]
@@ -54,7 +54,7 @@ def generate_level(level, gr, clock):
                 slugs.append(slug)
             elif level[y][x] == 'p':
                 Tiles.Platform(gr, pos)
-            elif level[y][x] == 'h':
+            elif level[y][x] == 'e':
                 pos_piranha = x, y
                 piranha = PiranhaPlant(gr, pos_piranha)
                 piranhas.append(piranha)
@@ -68,6 +68,8 @@ def generate_level(level, gr, clock):
                 Tiles.Rock(gr, pos)
             elif level[y][x] == 'c':
                 Tiles.Door(gr, pos)
+            elif level[y][x] == 'h':
+                Tiles.House(gr, pos)
     x_max = x * BLOCK_SIZE[0]
     y_max = y * BLOCK_SIZE[1]
     new_player = Player(gr, pos_player, clock, x_max)
