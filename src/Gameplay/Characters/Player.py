@@ -18,7 +18,7 @@ def hard_difficult():
     return
 
 
-SIZE_CONST = 37
+SIZE_CONST = 35
 
 
 class Player(pygame.sprite.Sprite):
@@ -193,7 +193,7 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.falling = False
                 self.vy = 0
-        print(self.right, self.left)
+        # print(self.right, self.left)
 
         self.rect.x = self.pos_x
         self.rect.y = self.pos_y

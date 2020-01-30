@@ -75,6 +75,10 @@ def generate_level(level, gr, clock):
                 Tiles.FaceBlock(gr, pos)
             elif level[y][x] == 'm':
                 Tiles.Shrooms(gr, pos)
+            elif level[y][x] == 'w':
+                Tiles.Skulls(gr, pos)
+            elif level[y][x] == 'z':
+                Tiles.SpikesSkull(gr, pos)
     x_max = x * BLOCK_SIZE[0]
     y_max = y * BLOCK_SIZE[1]
     new_player = Player(gr, pos_player, clock, x_max)
