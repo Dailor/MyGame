@@ -23,3 +23,4 @@ class Enemy(pygame.sprite.Sprite):
         if pygame.sprite.collide_mask(self, player):
             # self.player.take_dmg()
             player.event_handler(CharacterEvents.MOVE_UP)
+            player.hp -= 1

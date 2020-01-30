@@ -1,9 +1,7 @@
 from Configure import *
 from Background import ForrestBackgroundMain, ForrestBackgroundFront, Background
 from CharacterEvents import *
-from Player import Player
-from Configure_Map import BLOCK_SIZE
-from Bee import Bee
+from HealthBar import HealthBar
 import Tiles
 from Map import generate_level, slugs, bees, piranhas
 import sys
@@ -11,6 +9,7 @@ import pygame
 from Sounds import *
 from Pause import Pause
 from Enemy import Enemy
+
 
 class Camera:
     # зададим начальный сдвиг камеры
@@ -38,6 +37,8 @@ class Camera:
 class GamePlayMain:
     def __init__(self, screen, level):
         self.screen = screen
+        self.hb_gr = pygame.sprite.Group()
+        self.hb = HealthBar(self.hb_gr, (20, 20), 4)
         self.clock_t = pygame.time.Clock()
         self.clock = [0]
         self.all_tiles = pygame.sprite.Group()
@@ -96,7 +97,9 @@ class GamePlayMain:
         self.keyboard_events()
         self.player.render()
         [t.damage_check(self.player) for t in self.all_tiles if isinstance(t, Enemy)]
-
+        self.hb.red_inner(self.player.hp)
+        if self.player.hp == 0:
+            self.running = False
         self.camera_events()
 
     def camera_events(self):
@@ -107,6 +110,7 @@ class GamePlayMain:
     def drawing(self):
         self.screen.fill((255, 255, 255))
         self.background_group.draw(self.screen)
+        self.hb_gr.draw(self.screen)
         self.all_tiles.draw(self.screen)
         pygame.display.flip()
 
@@ -119,7 +123,7 @@ class GamePlayMain:
             self.event_handler()
             if any(isinstance(t, Tiles.House) for t in pygame.sprite.spritecollide(self.player, self.all_tiles, False)):
                 self.running = False
-                #self.passed_level = True
+                # self.passed_level = True
                 break
             self.drawing()
         if self.passed_level:

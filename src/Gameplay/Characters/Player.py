@@ -1,11 +1,9 @@
-from Character import Character
 from CharacterEvents import *
 from Configure_Gameplay import *
 from Utilities import load_image_v2
 from Configure_Map import BLOCK_SIZE
 from Configure import SIZE
 import pygame
-import threading
 
 
 def easy_difficult():
@@ -20,21 +18,16 @@ def hard_difficult():
     return
 
 
-# class Player(Character):
-#     def __init__(self, groups, hp, dmg, stamina, regeneration=None, start_weapon=None):
-#         super().__init__(groups, hp, dmg, stamina, regeneration=None, start_weapon=None)
-#         self.image = pygame.Surface((20, 20))
-#         self.image.fill((255, 0, 0))
-#         self.rect = self.image.get_rect()
-#         self.rect.x = 20
-#         self.rect.y = SIZE[1] // 2
-
 SIZE_CONST = 37
 
 
 class Player(pygame.sprite.Sprite):
+    MAX_HP = 3
+
     def __init__(self, gr, pos, clock, x_max, *args):
         super().__init__(gr)
+        self.hp = Player.MAX_HP
+
         self.all_tiles = gr
         self.x_max = x_max
         self.clock = clock
