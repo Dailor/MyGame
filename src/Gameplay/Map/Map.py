@@ -31,6 +31,8 @@ def generate_level(level, gr, clock):
     pos_bee = None
     pos_player = None
     pos_slug = None
+    player_list = list()
+    player_list.append(0)
     for y in range(len(level)):
         for x in range(len(level[y])):
             pos = x, y
@@ -41,7 +43,7 @@ def generate_level(level, gr, clock):
                 # вернем игрока, а также размер поля в клетках
             elif level[y][x] == 'o':
                 pos_bee = x, y
-                bee = Bee(gr, pos_bee)
+                bee = Bee(gr, pos_bee, None, player_list)
                 bees.append(bee)
             elif level[y][x] == 's':
                 Tiles.SmallStoneBlock(gr, pos)
@@ -49,13 +51,13 @@ def generate_level(level, gr, clock):
                 Tiles.Dirty(gr, pos)
             elif level[y][x] == 'u':
                 pos_slug = x, y
-                slug = Slug(gr, pos_slug)
+                slug = Slug(gr, pos_slug, None, player_list)
                 slugs.append(slug)
             elif level[y][x] == 'p':
                 Tiles.Platform(gr, pos)
             elif level[y][x] == 'e':
                 pos_piranha = x, y
-                piranha = PiranhaPlant(gr, pos_piranha)
+                piranha = PiranhaPlant(gr, pos_piranha, None, player_list)
                 piranhas.append(piranha)
             elif level[y][x] == 'b':
                 Tiles.Sign(gr, pos)
@@ -76,5 +78,6 @@ def generate_level(level, gr, clock):
     x_max = x * BLOCK_SIZE[0]
     y_max = y * BLOCK_SIZE[1]
     new_player = Player(gr, pos_player, clock, x_max)
+    player_list[0] = new_player
     # slug = Slug(gr, pos_slug)
     return new_player, x_max, y_max

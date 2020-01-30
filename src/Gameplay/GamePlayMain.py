@@ -10,7 +10,7 @@ import sys
 import pygame
 from Sounds import *
 from Pause import Pause
-
+from Enemy import Enemy
 
 class Camera:
     # зададим начальный сдвиг камеры
@@ -95,6 +95,8 @@ class GamePlayMain:
         self.pygame_events()
         self.keyboard_events()
         self.player.render()
+        [t.damage_check(self.player) for t in self.all_tiles if isinstance(t, Enemy)]
+
         self.camera_events()
 
     def camera_events(self):

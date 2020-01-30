@@ -9,8 +9,8 @@ SPEED_X = 100
 SPEED_Y = 0
 
 V0 = 100
-V0_JUMP = 13
-GRAVITY = 100
+V0_JUMP = 40
+GRAVITY = 300
 PLAYER_SIZE = 70, 70
 
 ANIM_walkRight = [['Gameplay/Character/run', 'adventurer-run-00.png'],
