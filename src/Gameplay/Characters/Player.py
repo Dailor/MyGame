@@ -77,6 +77,8 @@ class Player(pygame.sprite.Sprite):
         self.for_stay = 0
         self.Jump_Count = 10
         self.bubble()
+        self.right = 0
+        self.left = 0
 
     def bubble(self):
         while True:
@@ -129,18 +131,22 @@ class Player(pygame.sprite.Sprite):
 
     def render(self):
         self.mask = pygame.mask.from_surface(self.image)
-        if self.fps + 1 >= 30:
-            self.fps = 0
+        if self.right + 1 >= 30:
+            self.right = 0
+        if self.left + 1 >= 30:
+            self.left = 0
 
-        if not self.is_left and not self.is_right:
-            self.image = self.stay
+        # if not self.is_left and not self.is_right:
+        #     self.image = self.stay
 
         if self.is_left:
-            self.image = self.walkLeft[self.fps // 5]
-            self.fps += 1
+            self.is_right = False
+            self.image = self.walkLeft[self.left // 5]
+            self.left += 1
         elif self.is_right:
-            self.image = self.walkRight[self.fps // 5]
-            self.fps += 1
+            self.is_left = False
+            self.image = self.walkRight[self.right // 5]
+            self.right += 1
         else:
             self.image = self.stay
 
@@ -166,12 +172,12 @@ class Player(pygame.sprite.Sprite):
                 self.for_air_attack += 1
             self.air_attack = False
 
-        if self.for_stay + 1 >= 15:
-            self.for_stay = 0
-
-        if self.stay_:
-            self.image = self.stay_images[self.for_stay // 5]
-            self.for_stay += 1
+        # if self.for_stay + 1 >= 15:
+        #     self.for_stay = 0
+        #
+        # if self.stay_:
+        #     self.image = self.stay_images[self.for_stay // 5]
+        #     self.for_stay += 1
 
         time = self.clock[0] / 1000
         if self.jump_enable is True:
@@ -194,6 +200,7 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.falling = False
                 self.vy = 0
+        print(self.right, self.left)
 
         self.rect.x = self.pos_x
         self.rect.y = self.pos_y
