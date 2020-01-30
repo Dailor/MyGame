@@ -58,7 +58,7 @@ def generate_level(level, gr, clock):
                 piranha = PiranhaPlant(gr, pos_piranha)
                 piranhas.append(piranha)
             elif level[y][x] == 'b':
-                Tiles.House(gr, pos)
+                Tiles.Sign(gr, pos)
             elif level[y][x] == 't':
                 Tiles.Tree(gr, pos)
             elif level[y][x] == 'k':
@@ -69,6 +69,10 @@ def generate_level(level, gr, clock):
                 Tiles.Door(gr, pos)
             elif level[y][x] == 'h':
                 Tiles.House(gr, pos)
+            elif level[y][x] == 'f':
+                Tiles.FaceBlock(gr, pos)
+            elif level[y][x] == 'm':
+                Tiles.Shrooms(gr, pos)
     x_max = x * BLOCK_SIZE[0]
     y_max = y * BLOCK_SIZE[1]
     new_player = Player(gr, pos_player, clock, x_max)
