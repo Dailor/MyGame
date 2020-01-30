@@ -29,5 +29,5 @@ for j in range(y):
             raise Exception(f"Нету {rgb}")
     result += '\n'
 
-with open(name.rsplit('.', maxsplit=1)[0] + '.txt', 'w') as f:
+with open(name.rsplit('.', maxsplit=1)[0], 'w') as f:
     f.write(result)

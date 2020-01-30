@@ -31,7 +31,6 @@ def generate_level(level, gr, clock):
     pos_bee = None
     pos_player = None
     pos_slug = None
-    print('\n'.join(level))
     for y in range(len(level)):
         for x in range(len(level[y])):
             pos = x, y
