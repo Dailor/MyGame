@@ -110,8 +110,8 @@ class GamePlayMain:
     def drawing(self):
         self.screen.fill((255, 255, 255))
         self.background_group.draw(self.screen)
-        self.hb_gr.draw(self.screen)
         self.all_tiles.draw(self.screen)
+        self.hb_gr.draw(self.screen)
         pygame.display.flip()
 
     def rendering(self):
@@ -123,16 +123,13 @@ class GamePlayMain:
             self.event_handler()
             if any(isinstance(t, Tiles.House) for t in pygame.sprite.spritecollide(self.player, self.all_tiles, False)):
                 self.running = False
-                # self.passed_level = True
+                self.passed_level = True
                 break
             self.drawing()
         if self.passed_level:
-            """
-            Тут победа
-            """
-            pass
+           return True
         else:
-            return
+            return False
 
     def pause(self):
         Pause(self.screen)

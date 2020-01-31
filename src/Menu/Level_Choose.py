@@ -9,12 +9,31 @@ from GamePlayMain import GamePlayMain
 class LevelChoose:
     def __init__(self, screen, background, background_group):
         self.screen = screen
+        try:
+            self.level_choose_f = open(SAVE_PATH, 'r')
+            data = self.level_choose_f.read()
+            if len(data) < level_count:
+                for i in range(abs(len(data) - level_count)):
+                    data += '0'
+            self.level_choose_f.close()
+            data[0] = '1'
+
+            self.level_choose_f = open(SAVE_PATH, 'w')
+            self.level_choose_f.write(data)
+        except Exception as e:
+            self.level_choose_f = open(SAVE_PATH, 'w')
+            data = ['0' for i in range(level_count)]
+            data[0] = '1'
+            self.level_choose_f.write(''.join(data))
+        self.lvls_data = data
+
         self.background = background
         self.background_group = background_group
         self.events = list()
         self.pages_loader()
         self.arrow_loader()
         self.page_now = 0
+        self.level_choose_f.close()
 
     def pages_loader(self):
         self.all_pages = list()
@@ -24,7 +43,7 @@ class LevelChoose:
             pages = pygame.sprite.Group()
             for row, coord in zip(page, coords):
                 text_writer(SIZE, row, LEVEL_DELTA, coord, LEVEL_FONT_SIZE, pages, self.events, False,
-                            number_event)
+                            number_event, lvls_data=self.lvls_data[number_event: number_event + LEVEL_CHOOSE_COLS])
                 number_event += LEVEL_CHOOSE_COLS
             self.all_pages.append(pages)
 
@@ -59,8 +78,21 @@ class LevelChoose:
                 else:
                     self.page_now += 1
             else:
+                if self.lvls_data[event] == '0':
+                    continue
                 level = GamePlayMain(self.screen, f"Level{event}")
-                level.rendering()
+                pass_level = level.rendering()
+                if pass_level:
+                    self.save_passed(event + 1)
+                    self.__init__(self.screen, self.background, self.background_group)
+                    pygame.display.flip()
+
+    def save_passed(self, n):
+        with open(SAVE_PATH, 'r') as f:
+            data = list(f.read())
+        data[n] = '1'
+        with open(SAVE_PATH, 'w') as f:
+            f.write(''.join(data))
 
     def rendering(self):
         self.running = True

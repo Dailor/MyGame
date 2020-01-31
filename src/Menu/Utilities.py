@@ -18,7 +18,7 @@ def sprite_sheet(sheet, columns, rows):
 
 
 def text_writer(size, all_text, delta, start_coords, font_size, buttons_group=None, event=None, draw_rect=None,
-                number_event=None):
+                number_event=None, lvls_data=None):
     x, y = start_coords
     dx, dy = delta
 
@@ -31,11 +31,19 @@ def text_writer(size, all_text, delta, start_coords, font_size, buttons_group=No
     image.fill(FILL_COLOR_UTILITIES)
 
     lines_group = pygame.sprite.Group()
+    if lvls_data is not None:
+        green = (82, 222, 133)
+        red = (222, 65, 78)
+        colors = [green if i == '1'  else red for i in lvls_data]
+        colors = iter(colors)
+    else:
+        colors = [COLOR_TEXT for i in range(len(all_text))]
+        colors = iter(colors)
 
     for line in all_text:
         if button:
             ClickableTextBox(buttons_group, event, number_event, (x, y), line, font_size, draw_rect=draw_rect,
-                             color=COLOR_TEXT)
+                             color=next(colors))
             number_event += 1
         else:
             TextBox(lines_group, (x, y), line, font_size, draw_rect=False, color=COLOR_TEXT)
