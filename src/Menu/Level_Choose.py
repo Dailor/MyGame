@@ -16,11 +16,12 @@ class LevelChoose:
                 for i in range(abs(len(data) - level_count)):
                     data += '0'
             self.level_choose_f.close()
+            data = list(data)
             data[0] = '1'
-
             self.level_choose_f = open(SAVE_PATH, 'w')
-            self.level_choose_f.write(data)
+            self.level_choose_f.write(''.join(data))
         except Exception as e:
+            print(e)
             self.level_choose_f = open(SAVE_PATH, 'w')
             data = ['0' for i in range(level_count)]
             data[0] = '1'
@@ -83,6 +84,7 @@ class LevelChoose:
                 level = GamePlayMain(self.screen, f"Level{event}")
                 pass_level = level.rendering()
                 if pass_level:
+                    print(True)
                     self.save_passed(event + 1)
                     self.__init__(self.screen, self.background, self.background_group)
                     pygame.display.flip()
@@ -93,6 +95,7 @@ class LevelChoose:
         data[n] = '1'
         with open(SAVE_PATH, 'w') as f:
             f.write(''.join(data))
+
 
     def rendering(self):
         self.running = True

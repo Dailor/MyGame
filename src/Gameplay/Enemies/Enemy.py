@@ -15,12 +15,12 @@ class Enemy(pygame.sprite.Sprite):
         self.fps = 0
         self.image = self.bee
         self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = self.pos_x * SIZE_CONST, self.pos_y * SIZE_CONST
+        self.rect.x, self.rect.y = self.pos_x * SIZE_CONST, self.pos_y * SIZE_CONST + 29
         self.pos_x, self.pos_y = self.rect.x, self.rect.y
         self.mask = pygame.mask.from_surface(self.image)
 
     def damage_check(self, player):
         if pygame.sprite.collide_mask(self, player):
             # self.player.take_dmg()
-            player.event_handler(CharacterEvents.MOVE_UP)
+            player.event_handler(CharacterEvents.MOVE_UP, True)
             player.hp -= 1

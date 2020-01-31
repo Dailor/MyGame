@@ -33,7 +33,7 @@ class Player(pygame.sprite.Sprite):
         self.clock = clock
         self.pos_x, self.pos_y = pos
         self.vy = 0
-
+        self.second_jump = True
         self.stay = load_image_v2(['Gameplay/Character/idle', 'adventurer-idle-00.png'], PLAYER_SIZE)
         self.image = self.stay
         self.mask = pygame.mask.from_surface(self.image)
@@ -86,34 +86,38 @@ class Player(pygame.sprite.Sprite):
             if clause:
                 break
 
-    def event_handler(self, event):
+    def event_handler(self, event, dmg_get=False):
         time = self.clock[0] / 1000
-        collides = [(t.rect.x, t.rect.y, t.rect.w, t.rect.h) for t in
+        collides = [(t.pos_x, t.pos_y, t.rect.w, t.rect.h) for t in
                     pygame.sprite.spritecollide(self, self.all_tiles, False) if isinstance(t, Player) is False]
         if event == MOVE_LEFT:
-            # for x_t, y_t, w_t, h_t in collides:
-            #     if x_t <= self.rect.x - 1 <= x_t + w_t and y_t - h_t > self.rect.y - self.rect.h:
-            #         return
             dx = SPEED_X * time
+            # for x_t, y_t, w_t, h_t in collides:
+            #     if x_t  <= self.pos_x - dx <= x_t + w_t and self.pos_y - self.rect.h < y_t:
+            #         return
             self.pos_x -= dx
             self.pos_rel_x -= dx
             self.is_right = False
             self.is_left = True
             self.stay_ = False
         elif event == MOVE_RIGHT:
-            # for x_t, y_t, w_t, h_t in collides:
-            #     if x_t <= self.rect.x + self.rect.w + 1 <= x_t + w_t and y_t - h_t > self.rect.y - self.rect.h:
-            #         return
             dx = SPEED_X * time
+            # for x_t, y_t, w_t, h_t in collides:
+            #     if x_t <= (self.pos_x + self.rect.w) + dx <= x_t + w_t and self.pos_y - self.rect.h < y_t:
+            #         return
             self.pos_x += dx
             self.pos_rel_x += dx
             self.is_right = True
             self.is_left = False
             self.stay_ = False
-        if event == MOVE_UP and self.jump_enable is False:
+        if event == MOVE_UP and (((
+                                          self.jump_enable is False and self.falling) is False) or dmg_get):
             self.jump_enable = True
+            if dmg_get is False:
+                self.second_jump = not self.second_jump
+
             self.vy = V0_JUMP
-        if event == ATTACK and self.jump_enable is True and self.attack is False:
+        if event == ATTACK and (((self.jump_enable or self.falling) is True and self.attack is False) or dmg_get):
             self.air_attack = True
             self.stay_ = False
         if event == ATTACK and self.attack is False:
@@ -183,7 +187,7 @@ class Player(pygame.sprite.Sprite):
             for tile in self.all_tiles:
                 if isinstance(tile, Player):
                     continue
-                if (pygame.sprite.collide_mask(self, tile) and self.rect.y - self.rect.h >= tile.rect.y) is False:
+                if (pygame.sprite.collide_mask(self, tile) and self.pos_y - self.rect.h >= tile.rect.y) is False:
                     check_collide = True
                     break
             if check_collide is False:

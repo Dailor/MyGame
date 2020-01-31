@@ -9,6 +9,7 @@ import pygame
 from Sounds import *
 from Pause import Pause
 from Enemy import Enemy
+from GameOver import GameOver
 
 
 class Camera:
@@ -37,16 +38,25 @@ class Camera:
 class GamePlayMain:
     def __init__(self, screen, level):
         self.screen = screen
+        self.level_pre = level
         self.hb_gr = pygame.sprite.Group()
         self.hb = HealthBar(self.hb_gr, (20, 20), 4)
         self.clock_t = pygame.time.Clock()
         self.clock = [0]
         self.all_tiles = pygame.sprite.Group()
         self.player, x_max, y_max = generate_level(level, self.all_tiles, self.clock)
+        self.spites_start()
         self.background_group = pygame.sprite.Group()
         self.background = ForrestBackgroundMain(self.screen, self.background_group, self.clock, x_max)
         self.background_front = ForrestBackgroundFront(self.screen, self.background_group, self.clock, x_max)
         self.ifpause = False
+
+    def spites_start(self):
+        for t in self.all_tiles:
+            try:
+                t.drop_down()
+            except Exception as e:
+                continue
 
     def terminate(self):
         sys.exit()
@@ -127,9 +137,15 @@ class GamePlayMain:
                 break
             self.drawing()
         if self.passed_level:
-           return True
+            return True
         else:
-            return False
+            game_over = GameOver(self.screen)
+            result = game_over.rendering()
+            if result is False:
+                return False
+            else:
+                again = GamePlayMain(self.screen, self.level_pre)
+                return again.rendering()
 
     def pause(self):
         Pause(self.screen)
