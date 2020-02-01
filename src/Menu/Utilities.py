@@ -70,5 +70,4 @@ def load_image(path, colorkey=None):
 def load_image_v2(path, size=None):
     image = load_image(path, None)
     image = pygame.transform.scale(image, size)
-    print(size)
     return image
