@@ -11,6 +11,7 @@ MENU_M_SEC = 100
 FONT_SIZE_MENU = 50
 DELTA_MENU = (0, 70)
 COORDS_TEXT_MENU = (80, 107)
+SAVE_PATH = "data/save"
 
 #### Pause
 PAUSE_TEXT = ["ПРОДОЛЖИТЬ", "ВЫХОД"]
