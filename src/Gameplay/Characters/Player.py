@@ -122,8 +122,7 @@ class Player(pygame.sprite.Sprite):
 
             self.vy = V0_JUMP
             if dmg_get:
-                self.vy = 200
-                self.pos_y += 20
+                self.vy = 50
 
         if event == ATTACK and self.attack is False:
             self.attack = True

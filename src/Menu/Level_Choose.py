@@ -92,9 +92,12 @@ class LevelChoose:
     def save_passed(self, n):
         with open(SAVE_PATH, 'r') as f:
             data = list(f.read())
-        data[n] = '1'
-        with open(SAVE_PATH, 'w') as f:
-            f.write(''.join(data))
+        try:
+            data[n] = '1'
+            with open(SAVE_PATH, 'w') as f:
+                f.write(''.join(data))
+        except:
+            pass
 
 
     def rendering(self):
