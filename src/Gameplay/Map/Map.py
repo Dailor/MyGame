@@ -6,10 +6,12 @@ from Player import Player
 from Bee import Bee
 from Slug import Slug
 from Piranha_Plant import PiranhaPlant
+from Star import Star
 
 slugs = []
 bees = []
 piranhas = []
+stars = []
 
 
 def load_level(filename):
@@ -79,6 +81,9 @@ def generate_level(level, gr, clock, bg):
                 Tiles.Skulls(gr, pos)
             elif level[y][x] == 'z':
                 Tiles.SpikesSkull(gr, pos)
+            elif level[y][x] == '#':
+                star = Star(gr, pos, None, player_list)
+                stars.append(star)
     x_max = x * BLOCK_SIZE[0]
     y_max = y * BLOCK_SIZE[1]
     new_player = Player(gr, pos_player, clock, x_max, bg)

@@ -1,3 +1,8 @@
+from Utilities import load_image
+import pygame
+
+pygame.init()
+pygame.display.set_mode()
 #### Character
 REGENERATION = 20
 STAMINA_RECOVERY = 20
@@ -7,7 +12,7 @@ STAMINA_RECOVERY = 20
 MAX_JUMP_H = None
 SPEED_X = 100
 SPEED_Y = 0
-
+STAR_SIZE = 25, 25
 V0 = 100
 V0_JUMP = 15
 GRAVITY = 400
@@ -54,3 +59,10 @@ ANIM_airRight = [['Gameplay/Character/air attack', 'adventurer-air-attack1-00.pn
 ANIM_stay_images = [['Gameplay/Character/idle', 'adventurer-idle-00.png'],
                     ['Gameplay/Character/idle', 'adventurer-idle-01.png'],
                     ['Gameplay/Character/idle', 'adventurer-idle-02.png']]
+
+STAR = [load_image(['Gameplay/Special/star', 'star-1.png']),
+        load_image(['Gameplay/Special/star', 'star-1.png']),
+        load_image(['Gameplay/Special/star', 'star-1.png']),
+        load_image(['Gameplay/Special/star', 'star-1.png']),
+        load_image(['Gameplay/Special/star', 'star-1.png']),
+        load_image(['Gameplay/Special/star', 'star-1.png'])]

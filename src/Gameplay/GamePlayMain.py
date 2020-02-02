@@ -3,7 +3,7 @@ from Background import ForrestBackgroundMain, ForrestBackgroundFront, Background
 from CharacterEvents import *
 from HealthBar import HealthBar
 import Tiles
-from Map import generate_level, slugs, bees, piranhas
+from Map import generate_level, slugs, bees, piranhas, stars
 import sys
 import pygame
 from Sounds import *
@@ -83,6 +83,9 @@ class GamePlayMain:
             j.stay()
         for z in piranhas:
             z.stay()
+        for u in stars:
+            # print('ok')
+            u.stay()
         if key[pygame.K_ESCAPE]:
             print(pygame.sprite.spritecollide(self.player, self.all_tiles, False))
         if key[pygame.K_LEFT]:

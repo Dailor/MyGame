@@ -4,7 +4,7 @@ from Enemy_Configure import Piranha_Plant
 
 
 class PiranhaPlant(Enemy):
-    def __init__(self, gr, pos, x_max=None,  player=None, *args):
+    def __init__(self, gr, pos, x_max=None, player=None, *args):
         super().__init__(gr, pos, Piranha_Plant, player, x_max)
 
     def stay(self):
