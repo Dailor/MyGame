@@ -135,6 +135,9 @@ class GamePlayMain:
                 self.running = False
                 self.passed_level = True
                 break
+            if self.player.game_over:
+                self.running = False
+                break
             self.drawing()
         if self.passed_level:
             return True

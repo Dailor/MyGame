@@ -17,7 +17,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, gr, pos, clock, x_max, bg, *args):
         super().__init__(gr)
         self.hp = Player.MAX_HP
-
+        self.game_over = False
         self.background_group = bg
         self.all_tiles = gr
         self.x_max = x_max
@@ -81,6 +81,7 @@ class Player(pygame.sprite.Sprite):
         rect_collide.w = 1
 
         if event == MOVE_LEFT:
+            rect_collide.x += self.rect.w * (1 / 4)
             dx = SPEED_X * time
             collides = [(t.pos_x, t.pos_y, t.rect.w, t.rect.h, t) for t in
                         pygame.sprite.spritecollide(self, self.all_tiles, False) if
@@ -97,8 +98,8 @@ class Player(pygame.sprite.Sprite):
             self.is_right = False
             self.is_left = True
             self.stay_ = False
-        elif event == MOVE_RIGHT:
-            rect_collide.x += self.rect.w
+        if event == MOVE_RIGHT:
+            rect_collide.x += self.rect.w * (3 / 4)
             collides = [(t.pos_x, t.pos_y, t.rect.w, t.rect.h, t) for t in
                         pygame.sprite.spritecollide(self, self.all_tiles, False) if
                         dont_check_tile(t) is False is False and rect_collide.colliderect(t.rect)]
@@ -115,14 +116,7 @@ class Player(pygame.sprite.Sprite):
             self.is_right = True
             self.is_left = False
             self.stay_ = False
-        if event is None:
-            self.last_none_act = True
-            self.is_left_before = self.is_left
-            self.is_right = False
-            self.is_left = False
-            self.stay_ = True
-        if event == MOVE_UP and (((
-                                          self.jump_enable is False and self.falling) is False) or dmg_get):
+        if event == MOVE_UP or dmg_get:
             self.jump_enable = True
             self.falling = False
 
@@ -136,6 +130,41 @@ class Player(pygame.sprite.Sprite):
             self.stay_ = False
         else:
             self.stay_ = True
+
+        if event is None:
+            self.last_none_act = True
+            self.is_left_before = self.is_left
+            self.is_right = False
+            self.is_left = False
+            self.stay_ = True
+
+    def check_up_floor(self, dy):
+        rect_check = copy.deepcopy(self.rect)
+        rect_check.w = 1
+        rect_check.x += self.rect.w * (1 / 2)
+
+        for t in self.all_tiles:
+            if dont_check_tile(t):
+                continue
+            t_x, t_w, t_y, t_h = t.rect.x, t.rect.w, t.rect.y, t.rect.h
+            if t_x <= rect_check.x <= t_x + t_w and rect_check.y >= t_y + t_h:
+                if t_y <= rect_check.y - dy <= t_y + t_h:
+                    return False
+        return True
+
+    def check_down_floor(self, dy):
+        rect_check = copy.deepcopy(self.rect)
+        rect_check.w = 1
+        rect_check.x += self.rect.w * (1 / 2)
+
+        for t in self.all_tiles:
+            if dont_check_tile(t):
+                continue
+            t_x, t_w, t_y, t_h = t.rect.x, t.rect.w, t.rect.y, t.rect.h
+            if t_x <= rect_check.x <= t_x + t_w and rect_check.y <= t_y + t_h:
+                if t_y <= rect_check.y + self.rect.h - dy <= t_y + t_h:
+                    return False, t
+        return True, None
 
     def render(self):
         self.mask = pygame.mask.from_surface(self.image)
@@ -189,33 +218,40 @@ class Player(pygame.sprite.Sprite):
 
         time = self.clock[0] / 1000
         if self.jump_enable is True:
-            self.pos_y -= self.vy - GRAVITY * time ** 2 / 2
-            self.vy -= GRAVITY * time
-            if self.vy <= 0:
-                self.jump_enable = False
-            collides = [t for t in pygame.sprite.spritecollide(self, self.all_tiles, False) if dont_check_tile(t) is False]
-            if len(collides) != 0:
+            dy_jump = self.vy - GRAVITY * time ** 2 / 2
+            if self.check_up_floor(dy_jump) is True:
+                self.pos_y -= dy_jump
+                self.vy -= GRAVITY * time
+            else:
                 self.vy = 0
                 self.jump_enable = False
-                self.pos_y += 10
+                self.falling = True
+            if self.vy <= 0:
+                self.vy = 0
+                self.jump_enable = False
+                self.falling = True
+
         elif self.jump_enable is False:
             check_collide = False
             rect_check = copy.deepcopy(self.rect)
             rect_check.w = 1
-
             rect_check.x = self.pos_x + self.rect.w // 2
             for t in self.all_tiles:
                 if dont_check_tile(t): continue
                 if rect_check.colliderect(t.rect):
-                    check_collide = True
-                    y_t, w_t = t.rect.y, t.rect.w
-                    if self.pos_y <= y_t <= y_t + w_t <= self.pos_y + self.rect.h or y_t <= self.pos_y <= y_t + w_t <= self.pos_y + self.rect.h:
-                        check_collide = False
-                    break
+                    t_x, t_w, t_y, t_h = t.rect.x, t.rect.w, t.rect.y, t.rect.h
+                    if t_x <= rect_check.x <= t_x + t_w:
+                        check_collide = True
+                        break
             if check_collide is False:
                 self.falling = True
                 self.vy += GRAVITY * time
-                self.pos_y += self.vy * time + GRAVITY * time ** 2 / 2
+                dy = -self.vy * time + GRAVITY * time ** 2 / 2
+                r1, r2 = self.check_down_floor(dy)
+                if r1:
+                    self.pos_y -= dy
+                else:
+                    self.pos_y = r2.rect.y - r2.rect.w
             else:
                 self.falling = False
                 self.vy = 0
