@@ -24,7 +24,7 @@ class Star(Enemy):
         self.image = STAR[self.fps // 5]
         # self.mask = pygame.mask.from_surface(self.image)
         self.fps += 1
-        print(self.fps)
+        # print(self.fps)
 
     def damage_check(self, player):
         if pygame.sprite.collide_mask(self, player):
