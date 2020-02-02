@@ -4,6 +4,19 @@ from Configure import *
 from TextBox import TextBox, ClickableTextBox
 
 
+
+
+def dont_check_tile(t):
+    from Player import Player
+    from Enemy import Enemy
+    from Tiles import Bush, Tree, Rock
+    dont_check = [Player, Enemy, Bush, Tree, Rock]
+    for check in dont_check:
+        if isinstance(t, check):
+            return True
+    return False
+
+
 def sprite_sheet(sheet, columns, rows):
     frames = list()
     rect = pygame.Rect(0, 0, sheet.get_width() // columns,
@@ -34,7 +47,7 @@ def text_writer(size, all_text, delta, start_coords, font_size, buttons_group=No
     if lvls_data is not None:
         green = (82, 222, 133)
         red = (222, 65, 78)
-        colors = [green if i == '1'  else red for i in lvls_data]
+        colors = [green if i == '1' else red for i in lvls_data]
         colors = iter(colors)
     else:
         colors = [COLOR_TEXT for i in range(len(all_text))]

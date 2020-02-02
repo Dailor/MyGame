@@ -4,7 +4,7 @@ import pygame
 pygame.init()
 pygame.display.set_mode()
 
-SIZE_ENEMY = 70, 70
+SIZE_ENEMY = 50, 50
 
 Bee_stay = [load_image_v2(['Gameplay/Enemies/bee', 'bee-1.png'], SIZE_ENEMY),
             load_image_v2(['Gameplay/Enemies/bee', 'bee-2.png'], SIZE_ENEMY),

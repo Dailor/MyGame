@@ -25,7 +25,7 @@ def load_level(filename):
     return list(map(lambda x: x.ljust(max_width, '.'), level_map))
 
 
-def generate_level(level, gr, clock):
+def generate_level(level, gr, clock, bg):
     level = load_level(level)
     new_player, x, y = None, None, None
     pos_bee = None
@@ -81,7 +81,7 @@ def generate_level(level, gr, clock):
                 Tiles.SpikesSkull(gr, pos)
     x_max = x * BLOCK_SIZE[0]
     y_max = y * BLOCK_SIZE[1]
-    new_player = Player(gr, pos_player, clock, x_max)
+    new_player = Player(gr, pos_player, clock, x_max, bg)
     player_list[0] = new_player
     # slug = Slug(gr, pos_slug)
     return new_player, x_max, y_max

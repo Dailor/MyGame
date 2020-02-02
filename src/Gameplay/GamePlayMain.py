@@ -44,9 +44,9 @@ class GamePlayMain:
         self.clock_t = pygame.time.Clock()
         self.clock = [0]
         self.all_tiles = pygame.sprite.Group()
-        self.player, x_max, y_max = generate_level(level, self.all_tiles, self.clock)
-        self.spites_start()
         self.background_group = pygame.sprite.Group()
+        self.player, x_max, y_max = generate_level(level, self.all_tiles, self.clock, self.background_group)
+        self.spites_start()
         self.background = ForrestBackgroundMain(self.screen, self.background_group, self.clock, x_max)
         self.background_front = ForrestBackgroundFront(self.screen, self.background_group, self.clock, x_max)
         self.ifpause = False
@@ -87,10 +87,8 @@ class GamePlayMain:
             print(pygame.sprite.spritecollide(self.player, self.all_tiles, False))
         if key[pygame.K_LEFT]:
             self.player.event_handler(MOVE_LEFT)
-            self.background_group.update(">")
         elif key[pygame.K_RIGHT]:
             self.player.event_handler(MOVE_RIGHT)
-            self.background_group.update("<")
         elif key[pygame.K_UP]:
             jump_music()
             self.player.event_handler(MOVE_UP)
@@ -101,6 +99,8 @@ class GamePlayMain:
             self.player.event_handler(ATTACK)
             self.clock_t.tick(40)
             background_music()
+        else:
+            self.player.event_handler(None)
 
     def event_handler(self):
         self.pygame_events()
