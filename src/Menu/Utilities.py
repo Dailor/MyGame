@@ -4,13 +4,11 @@ from Configure import *
 from TextBox import TextBox, ClickableTextBox
 
 
-
-
 def dont_check_tile(t):
     from Player import Player
     from Enemy import Enemy
-    from Tiles import Bush, Tree, Rock
-    dont_check = [Player, Enemy, Bush, Tree, Rock]
+    from Tiles import Bush, Tree, Rock, CrankDown, Shrooms, Skulls, Sign
+    dont_check = [Player, Enemy, Bush, Tree, Rock, CrankDown, Shrooms, Skulls, Sign]
     for check in dont_check:
         if isinstance(t, check):
             return True

@@ -1,7 +1,5 @@
-from __future__ import absolute_import
-import pygame
-import sys
 
+import pygame
 from Menu import Menu
 from Configure import *
 
