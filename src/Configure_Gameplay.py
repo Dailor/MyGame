@@ -1,4 +1,4 @@
-from Utilities import load_image
+from Utilities import load_image_v2
 import pygame
 
 pygame.init()
@@ -60,9 +60,9 @@ ANIM_stay_images = [['Gameplay/Character/idle', 'adventurer-idle-00.png'],
                     ['Gameplay/Character/idle', 'adventurer-idle-01.png'],
                     ['Gameplay/Character/idle', 'adventurer-idle-02.png']]
 
-STAR = [load_image(['Gameplay/Special/star', 'star-1.png']),
-        load_image(['Gameplay/Special/star', 'star-1.png']),
-        load_image(['Gameplay/Special/star', 'star-1.png']),
-        load_image(['Gameplay/Special/star', 'star-1.png']),
-        load_image(['Gameplay/Special/star', 'star-1.png']),
-        load_image(['Gameplay/Special/star', 'star-1.png'])]
+STAR = [load_image_v2(['Gameplay/Special/star', 'star-1.png'], STAR_SIZE),
+        load_image_v2(['Gameplay/Special/star', 'star-1.png'], STAR_SIZE),
+        load_image_v2(['Gameplay/Special/star', 'star-1.png'], STAR_SIZE),
+        load_image_v2(['Gameplay/Special/star', 'star-1.png'], STAR_SIZE),
+        load_image_v2(['Gameplay/Special/star', 'star-1.png'], STAR_SIZE),
+        load_image_v2(['Gameplay/Special/star', 'star-1.png'], STAR_SIZE)]
