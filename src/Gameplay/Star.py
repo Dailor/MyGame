@@ -11,24 +11,14 @@ class Star(Enemy):
     def __init__(self, gr, pos, list, x_max=None, player=None, *args):
         super().__init__(gr, pos, STAR, player, x_max)
 
-    # def damage_check(self, player):
-    #     if pygame.sprite.collide_mask(self, player):
-    #         # self.player.take_dmg()
-    #         player.event_handler(CharacterEvents.MOVE_UP, True)
-    #         if player.hp <= 2:
-    #             player.hp += 1
-
     def stay(self):
         if self.fps + 1 > 30:
             self.fps = 0
         self.image = STAR[self.fps // 5]
-        # self.mask = pygame.mask.from_surface(self.image)
         self.fps += 1
-        # print(self.fps)
 
     def damage_check(self, player):
         if pygame.sprite.collide_mask(self, player):
-            # self.player.take_dmg()
-            player.event_handler(CharacterEvents.MOVE_UP, True)
             if player.hp <= 2:
                 player.hp += 1
+            self.kill()
