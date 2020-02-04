@@ -12,7 +12,6 @@ class Rules:
         self.background_group = background_group
         self.text = self.game_rules()
 
-
     def terminate(self):
         pygame.quit()
         sys.exit()

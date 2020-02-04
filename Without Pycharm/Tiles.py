@@ -5,6 +5,7 @@ from Utilities import load_image
 
 BLOCK_SIZE = 50, 50
 
+
 class Tile(pygame.sprite.Sprite):
     def __init__(self, groups, size, pos, path):
         x, y = pos

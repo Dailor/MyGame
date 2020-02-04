@@ -14,7 +14,8 @@ class Menu:
         self.background_group = pygame.sprite.Group()
         self.buttons_texts = MENU_TEXT
         self.buttons_sprites = pygame.sprite.Group()
-        text_writer(size, self.buttons_texts, DELTA_MENU, COORDS_TEXT_MENU, FONT_SIZE_MENU, self.buttons_sprites, self.events, False)
+        text_writer(size, self.buttons_texts, DELTA_MENU, COORDS_TEXT_MENU, FONT_SIZE_MENU, self.buttons_sprites,
+                    self.events, False)
         self.background = Background(self.background_group)
         self.clock = pygame.time.Clock()
 

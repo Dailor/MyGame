@@ -98,13 +98,12 @@ class LevelChoose:
                 f.write(''.join(data))
         except:
             end = pygame.image.load("data/end_game.png")
-            self.screen.blit(end, (0,0))
+            self.screen.blit(end, (0, 0))
             pygame.display.flip()
             while pygame.event.wait().type != pygame.KEYDOWN:
                 pass
             pygame.quit()
             sys.exit()
-
 
     def rendering(self):
         self.running = True

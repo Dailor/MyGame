@@ -1,4 +1,3 @@
-
 import pygame
 from Menu import Menu
 from Configure import *

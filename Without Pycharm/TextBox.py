@@ -2,7 +2,6 @@ import pygame
 from Configure import *
 
 
-
 class TextBox(pygame.sprite.Sprite):
     def __init__(self, group, coords, text, font_size, color=None, draw_rect=True):
         super().__init__(group)

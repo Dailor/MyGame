@@ -13,7 +13,8 @@ class Pause:
         self.events = []
         self.buttons_sprites = pygame.sprite.Group()
         self.size = SIZE
-        text_writer(self.size, self.buttons_texts, DELTA_PAUSE, COORDS_TEXT_PAUSE, FONT_SIZE_PAUSE, self.buttons_sprites,
+        text_writer(self.size, self.buttons_texts, DELTA_PAUSE, COORDS_TEXT_PAUSE, FONT_SIZE_PAUSE,
+                    self.buttons_sprites,
                     self.events, False)
         self.clock = pygame.time.Clock()
         self.render()
@@ -44,4 +45,3 @@ class Pause:
         self.buttons_sprites.draw(self.screen)
         pygame.time.delay(MENU_M_SEC)
         return self
-
