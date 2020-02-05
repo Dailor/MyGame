@@ -4,29 +4,29 @@ from Utilities import text_writer
 from TextBox import ClickableTextBox
 from Configure import *
 from GamePlayMain import GamePlayMain
+from BeatRecodr import BeatRec
+import json
 
 
 class LevelChoose:
     def __init__(self, screen, background, background_group):
         self.screen = screen
+
         try:
-            self.level_choose_f = open(SAVE_PATH, 'r')
-            data = self.level_choose_f.read()
-            if len(data) < level_count:
-                for i in range(abs(len(data) - level_count)):
-                    data += '0'
-            self.level_choose_f.close()
-            data = list(data)
-            data[0] = '1'
-            self.level_choose_f = open(SAVE_PATH, 'w')
-            self.level_choose_f.write(''.join(data))
+            with open(SAVE_PATH, 'r') as f:
+                self.save = json.load(f)
         except Exception as e:
-            print(e)
-            self.level_choose_f = open(SAVE_PATH, 'w')
-            data = ['0' for i in range(level_count)]
-            data[0] = '1'
-            self.level_choose_f.write(''.join(data))
-        self.lvls_data = data
+            self.save = dict()
+            save = self.save
+            for i in range(level_count):
+                save[i] = dict()
+                save[i]['last_time_start'] = None
+                save[i]['last_pos'] = None
+                save[i]['record'] = None
+                save[i]['opened'] = False if i != 0 else True
+                save[i]['recName'] = ''
+            with open(SAVE_PATH, 'w') as f:
+                json.dump(save, f)
 
         self.background = background
         self.background_group = background_group
@@ -35,6 +35,31 @@ class LevelChoose:
         self.arrow_loader()
         self.page_now = 0
         self.level_choose_f.close()
+
+    def save_passed(self, n, time):
+        previous_time = self.save[n - 1]['record']
+        previous_name = self.save[n - 1]['recName']
+
+        if time < previous_time:
+            br = BeatRec(self.screen, (previous_time, previous_name))
+            name = br.rendering()
+
+        elif previous_time is None:
+            br = BeatRec(self.screen)
+            name = br.rendering()
+
+        try:
+            self.save[n]['opened'] = True
+            with open(SAVE_PATH, 'w') as f:
+                json.dump(self.save, f)
+        except:
+            end = pygame.image.load("data/end_game.png")
+            self.screen.blit(end, (0, 0))
+            pygame.display.flip()
+            while pygame.event.wait().type != pygame.KEYDOWN:
+                pass
+            pygame.quit()
+            sys.exit()
 
     def pages_loader(self):
         self.all_pages = list()
@@ -88,23 +113,6 @@ class LevelChoose:
                     self.save_passed(event + 1)
                     self.__init__(self.screen, self.background, self.background_group)
                     pygame.display.flip()
-
-    def save_passed(self, n):
-        with open(SAVE_PATH, 'r') as f:
-            data = list(f.read())
-        try:
-            data[n] = '1'
-            with open(SAVE_PATH, 'w') as f:
-                f.write(''.join(data))
-        except:
-            end = pygame.image.load("data/end_game.png")
-            self.screen.blit(end, (0,0))
-            pygame.display.flip()
-            while pygame.event.wait().type != pygame.KEYDOWN:
-                pass
-            pygame.quit()
-            sys.exit()
-
 
     def rendering(self):
         self.running = True

@@ -10,7 +10,7 @@ from Sounds import *
 from Pause import Pause
 from Enemy import Enemy
 from GameOver import GameOver
-
+import time
 
 class Camera:
     # зададим начальный сдвиг камеры
@@ -37,6 +37,7 @@ class Camera:
 
 class GamePlayMain:
     def __init__(self, screen, level):
+        self.game_start_time = time.time()
         self.screen = screen
         self.level_pre = level
         self.hb_gr = pygame.sprite.Group()
@@ -69,14 +70,12 @@ class GamePlayMain:
             if event.type == pygame.KEYDOWN:
                 key = event.key
                 if key == pygame.K_ESCAPE:
-                    # print('ok')
+
                     self.ifpause = True
                     self.pause()
 
     def keyboard_events(self):
         key = pygame.key.get_pressed()
-        # self.bee.stay()
-        # self.slug.stay()
         for i in slugs:
             i.stay()
         for j in bees:
@@ -84,7 +83,6 @@ class GamePlayMain:
         for z in piranhas:
             z.stay()
         for u in stars:
-            # print('ok')
             u.stay()
         if key[pygame.K_ESCAPE]:
             print(pygame.sprite.spritecollide(self.player, self.all_tiles, False))

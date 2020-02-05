@@ -1,7 +1,7 @@
 import pygame
 import os
 from Configure import *
-from TextBox import TextBox, ClickableTextBox
+from TextBox import TextBox, ClickableTextBox, EditText
 
 
 def dont_check_tile(t):
