@@ -17,6 +17,7 @@ class Tile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = x * BLOCK_SIZE[0], y * BLOCK_SIZE[0]
         self.pos_x, self.pos_y = self.rect.x, self.rect.y
+        self.rel_pos_x, self.rel_pos_y = self.rect.x, self.rect.y
 
 
 class GrassBlock(Tile):

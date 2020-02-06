@@ -6,6 +6,7 @@ import Tiles
 from Map import generate_level, slugs, bees, piranhas, stars
 import sys
 import pygame
+import json
 from Sounds import *
 from Pause import Pause
 from Enemy import Enemy
@@ -36,8 +37,11 @@ class Camera:
 
 
 class GamePlayMain:
-    def __init__(self, screen, level):
-        self.game_start_time = time.time()
+    def __init__(self, screen, level, number_level, save):
+        self.save = save
+        saved_time = self.save[str(number_level)]['last_time_start']
+        self.game_start_time = time.time() if saved_time is None else saved_time
+        self.number_level = number_level
         self.screen = screen
         self.level_pre = level
         self.hb_gr = pygame.sprite.Group()
@@ -46,7 +50,7 @@ class GamePlayMain:
         self.clock = [0]
         self.all_tiles = pygame.sprite.Group()
         self.background_group = pygame.sprite.Group()
-        self.player, x_max, y_max = generate_level(level, self.all_tiles, self.clock, self.background_group)
+        self.player, x_max, y_max = generate_level(level, self.all_tiles, self.clock, self.background_group, pos_pl=self.save[str(number_level)]['last_pos'])
         self.spites_start()
         self.background = ForrestBackgroundMain(self.screen, self.background_group, self.clock, x_max)
         self.background_front = ForrestBackgroundFront(self.screen, self.background_group, self.clock, x_max)
@@ -60,8 +64,17 @@ class GamePlayMain:
                 continue
 
     def terminate(self):
+        self.save_data()
         sys.exit()
         pygame.quit()
+
+    def save_data(self):
+        t, pos_pl  =self.game_start_time, (self.player.pos_rel_x, self.player.pos_rel_y)
+        self.save[str(self.number_level)]['last_pos'] = pos_pl
+        self.save[str(self.number_level)]['last_time_start'] = t
+        with open(SAVE_PATH, 'w') as f:
+            json.dump(self.save, f)
+
 
     def pygame_events(self):
         for event in pygame.event.get():
@@ -70,9 +83,7 @@ class GamePlayMain:
             if event.type == pygame.KEYDOWN:
                 key = event.key
                 if key == pygame.K_ESCAPE:
-
-                    self.ifpause = True
-                    self.pause()
+                    pass
 
     def keyboard_events(self):
         key = pygame.key.get_pressed()
@@ -135,18 +146,24 @@ class GamePlayMain:
             if any(isinstance(t, Tiles.House) for t in pygame.sprite.spritecollide(self.player, self.all_tiles, False)):
                 self.running = False
                 self.passed_level = True
+
+                self.save[str(self.number_level)]['last_pos'] = None
+                self.save[str(self.number_level)]['last_time_start'] = None
+                with open(SAVE_PATH, 'w') as f:
+                    json.dump(self.save, f)
+
                 break
             if self.player.game_over:
                 self.running = False
                 break
             self.drawing()
         if self.passed_level:
-            return True
+            return True, time.time() - self.game_start_time
         else:
             game_over = GameOver(self.screen)
             result = game_over.rendering()
             if result is False:
-                return False
+                return False, None
             else:
                 again = GamePlayMain(self.screen, self.level_pre)
                 return again.rendering()

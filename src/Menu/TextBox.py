@@ -66,7 +66,6 @@ class EditText(TextBox):
         self.__init__(self.gr, self.coords, text, self.font_size, self.color, self.draw_rect_bool)
 
     def draw_rect(self):
-        print(self.SIZE)
         pygame.draw.rect(self.image, self.color, (0, 0, *EditText.SIZE), 1)
 
     def draw_text(self):

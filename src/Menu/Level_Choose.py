@@ -18,38 +18,44 @@ class LevelChoose:
         except Exception as e:
             self.save = dict()
             save = self.save
-            for i in range(level_count):
+            for j in range(level_count):
+                i = str(j)
                 save[i] = dict()
                 save[i]['last_time_start'] = None
                 save[i]['last_pos'] = None
                 save[i]['record'] = None
-                save[i]['opened'] = False if i != 0 else True
+                save[i]['opened'] = False if j != 0 else True
                 save[i]['recName'] = ''
             with open(SAVE_PATH, 'w') as f:
                 json.dump(save, f)
-
+        self.lvls_data = [self.save[str(i)]['opened'] for i in self.save]
         self.background = background
         self.background_group = background_group
         self.events = list()
         self.pages_loader()
         self.arrow_loader()
         self.page_now = 0
-        self.level_choose_f.close()
 
     def save_passed(self, n, time):
-        previous_time = self.save[n - 1]['record']
-        previous_name = self.save[n - 1]['recName']
-
-        if time < previous_time:
-            br = BeatRec(self.screen, (previous_time, previous_name))
-            name = br.rendering()
-
-        elif previous_time is None:
+        previous_time = self.save[str(n - 1)]['record']
+        previous_name = self.save[str(n - 1)]['recName']
+        self.save[str(n - 1)]['last_pos'] = None
+        self.save[str(n - 1)]['last_time_start'] = None
+        if previous_time is None:
             br = BeatRec(self.screen)
             name = br.rendering()
+            self.save[str(n - 1)]['recName'] = name
+            self.save[str(n - 1)]['record'] = time
+
+        elif time < previous_time:
+            br = BeatRec(self.screen, (previous_time, previous_name))
+            name = br.rendering()
+            self.save[str(n - 1)]['recName'] = name
+            self.save[str(n - 1)]['record'] = time
+
 
         try:
-            self.save[n]['opened'] = True
+            self.save[str(n)]['opened'] = True
             with open(SAVE_PATH, 'w') as f:
                 json.dump(self.save, f)
         except:
@@ -104,13 +110,12 @@ class LevelChoose:
                 else:
                     self.page_now += 1
             else:
-                if self.lvls_data[event] == '0':
+                if self.save[str(event)]['opened'] is False:
                     continue
-                level = GamePlayMain(self.screen, f"Level{event}")
-                pass_level = level.rendering()
+                level = GamePlayMain(self.screen, f"Level{event}", event, self.save)
+                pass_level, time_end = level.rendering()
                 if pass_level:
-                    print(True)
-                    self.save_passed(event + 1)
+                    self.save_passed(event + 1, time_end)
                     self.__init__(self.screen, self.background, self.background_group)
                     pygame.display.flip()
 

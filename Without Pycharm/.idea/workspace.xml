@@ -2,10 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9683a5fd-bc3c-49fb-a017-1c7d2f5adb09" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Configure_Gameplay.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Configure_Gameplay.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Gameplay/Star.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Gameplay/Star.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configure.py" beforeDir="false" afterPath="$PROJECT_DIR$/Configure.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GamePlayMain.py" beforeDir="false" afterPath="$PROJECT_DIR$/GamePlayMain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Level_Choose.py" beforeDir="false" afterPath="$PROJECT_DIR$/Level_Choose.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Map.py" beforeDir="false" afterPath="$PROJECT_DIR$/Map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/Player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TextBox.py" beforeDir="false" afterPath="$PROJECT_DIR$/TextBox.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tiles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/save" beforeDir="false" afterPath="$PROJECT_DIR$/data/save" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Gameplay/Characters/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Gameplay/Characters/Player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Gameplay/GamePlayMain.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Gameplay/GamePlayMain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Gameplay/Map/Map.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Gameplay/Map/Map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Gameplay/Map/Tiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Gameplay/Map/Tiles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Menu/BeatRecodr.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Menu/BeatRecodr.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/Menu/Level_Choose.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Menu/Level_Choose.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Menu/TextBox.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Menu/TextBox.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Menu/Utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Menu/Utilities.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,22 +117,22 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1815" height="281" key="GridCell.Tab.0.bottom" timestamp="1580747889801">
+    <state width="905" height="278" key="GridCell.Tab.0.bottom" timestamp="1580992430863">
       <screen x="78" y="0" width="1842" height="1080" />
     </state>
-    <state width="1815" height="281" key="GridCell.Tab.0.bottom/78.0.1842.1080@78.0.1842.1080" timestamp="1580747889801" />
-    <state width="1815" height="281" key="GridCell.Tab.0.center" timestamp="1580747889801">
+    <state width="905" height="278" key="GridCell.Tab.0.bottom/78.0.1842.1080@78.0.1842.1080" timestamp="1580992430863" />
+    <state width="905" height="278" key="GridCell.Tab.0.center" timestamp="1580992430863">
       <screen x="78" y="0" width="1842" height="1080" />
     </state>
-    <state width="1815" height="281" key="GridCell.Tab.0.center/78.0.1842.1080@78.0.1842.1080" timestamp="1580747889801" />
-    <state width="1815" height="281" key="GridCell.Tab.0.left" timestamp="1580747889801">
+    <state width="905" height="278" key="GridCell.Tab.0.center/78.0.1842.1080@78.0.1842.1080" timestamp="1580992430863" />
+    <state width="905" height="278" key="GridCell.Tab.0.left" timestamp="1580992430863">
       <screen x="78" y="0" width="1842" height="1080" />
     </state>
-    <state width="1815" height="281" key="GridCell.Tab.0.left/78.0.1842.1080@78.0.1842.1080" timestamp="1580747889801" />
-    <state width="1815" height="281" key="GridCell.Tab.0.right" timestamp="1580747889801">
+    <state width="905" height="278" key="GridCell.Tab.0.left/78.0.1842.1080@78.0.1842.1080" timestamp="1580992430863" />
+    <state width="905" height="278" key="GridCell.Tab.0.right" timestamp="1580992430863">
       <screen x="78" y="0" width="1842" height="1080" />
     </state>
-    <state width="1815" height="281" key="GridCell.Tab.0.right/78.0.1842.1080@78.0.1842.1080" timestamp="1580747889801" />
+    <state width="905" height="278" key="GridCell.Tab.0.right/78.0.1842.1080@78.0.1842.1080" timestamp="1580992430863" />
     <state x="645" y="327" key="com.intellij.ide.util.TipDialog" timestamp="1580746143008">
       <screen x="78" y="0" width="1842" height="1080" />
     </state>

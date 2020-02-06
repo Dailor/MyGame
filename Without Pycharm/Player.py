@@ -14,7 +14,7 @@ INFELICITY = 25
 class Player(pygame.sprite.Sprite):
     MAX_HP = 3
 
-    def __init__(self, gr, pos, clock, x_max, bg, *args):
+    def __init__(self, gr, pos, clock, x_max, bg,rel_coords=False ,*args):
         super().__init__(gr)
         self.hp = Player.MAX_HP
         self.game_over = False
@@ -28,9 +28,12 @@ class Player(pygame.sprite.Sprite):
         self.image = self.stay
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = self.pos_x * SIZE_CONST, self.pos_y * SIZE_CONST
+        if rel_coords is False:
+            self.rect.x, self.rect.y = self.pos_x * SIZE_CONST, self.pos_y * SIZE_CONST
+        else:
+            self.rect.x, self.rect.y = self.pos_x, self.pos_y
         self.pos_x, self.pos_y = self.rect.x, self.rect.y
-        self.pos_rel_x, self.pos_rel_x = self.pos_x, self.pos_y
+        self.pos_rel_x, self.pos_rel_y = self.pos_x, self.pos_y
 
         self.jump_enable = False
         self.falling = True
@@ -220,6 +223,7 @@ class Player(pygame.sprite.Sprite):
             dy_jump = self.vy - GRAVITY * time ** 2 / 2
             if self.check_up_floor(dy_jump) is True:
                 self.pos_y -= dy_jump
+                self.pos_rel_y -= dy_jump
                 self.vy -= GRAVITY * time
             else:
                 self.vy = 0
@@ -249,8 +253,10 @@ class Player(pygame.sprite.Sprite):
                 r1, r2 = self.check_down_floor(dy)
                 if r1:
                     self.pos_y -= dy
+                    self.pos_rel_y -= dy
                 else:
                     self.pos_y = r2.rect.y - r2.rect.w
+                    self.pos_rel_y = r2.rel_pos_y - r2.rect.w
             else:
                 self.falling = False
                 self.vy = 0

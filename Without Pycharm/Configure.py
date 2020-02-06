@@ -21,8 +21,11 @@ DELTA_PAUSE = (0, 70)
 COORDS_TEXT_PAUSE = (80, 107)
 
 #### RULES
-with open('data/Menu/RULES_TEXT', encoding='utf-8') as f:
-    RULES_TEXT = f.read().split('\n')
+try:
+    with open('data/Menu/RULES_TEXT', encoding='utf-8') as f:
+        RULES_TEXT = f.read().split('\n')
+except Exception as e:
+    print(e)
 FONT_SIZE_RULES = 40
 TEXT_COLOR_RULES = 182, 21, 222
 DELTA_RULES = (0, 80)

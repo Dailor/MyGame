@@ -45,7 +45,7 @@ def text_writer(size, all_text, delta, start_coords, font_size, buttons_group=No
     if lvls_data is not None:
         green = (82, 222, 133)
         red = (222, 65, 78)
-        colors = [green if i == '1' else red for i in lvls_data]
+        colors = [green if i == True else red for i in lvls_data]
         colors = iter(colors)
     else:
         colors = [COLOR_TEXT for i in range(len(all_text))]

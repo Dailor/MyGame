@@ -27,12 +27,10 @@ def load_level(filename):
     return list(map(lambda x: x.ljust(max_width, '.'), level_map))
 
 
-def generate_level(level, gr, clock, bg):
+def generate_level(level, gr, clock, bg, pos_pl=None):
     level = load_level(level)
     new_player, x, y = None, None, None
-    pos_bee = None
     pos_player = None
-    pos_slug = None
     player_list = list()
     player_list.append(0)
     for y in range(len(level)):
@@ -86,7 +84,10 @@ def generate_level(level, gr, clock, bg):
                 stars.append(star)
     x_max = x * BLOCK_SIZE[0]
     y_max = y * BLOCK_SIZE[1]
-    new_player = Player(gr, pos_player, clock, x_max, bg)
+    if pos_pl is not None:
+        new_player = Player(gr, pos_pl, clock, x_max, bg, rel_coords=True)
+    else:
+        new_player = Player(gr, pos_player, clock, x_max, bg)
     player_list[0] = new_player
     # slug = Slug(gr, pos_slug)
     return new_player, x_max, y_max
