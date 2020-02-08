@@ -26,6 +26,7 @@ class LevelChoose:
                 save[i]['record'] = None
                 save[i]['opened'] = False if j != 0 else True
                 save[i]['recName'] = ''
+                save[i]['whoPassed'] = list()
             with open(SAVE_PATH, 'w') as f:
                 json.dump(save, f)
         self.lvls_data = [self.save[str(i)]['opened'] for i in self.save]
@@ -37,24 +38,10 @@ class LevelChoose:
         self.page_now = 0
 
     def save_passed(self, n, time):
-        previous_time = self.save[str(n - 1)]['record']
-        previous_name = self.save[str(n - 1)]['recName']
-        self.save[str(n - 1)]['last_pos'] = None
-        self.save[str(n - 1)]['last_time_start'] = None
-        if previous_time is None:
-            br = BeatRec(self.screen)
-            name = br.rendering()
-            self.save[str(n - 1)]['recName'] = name
-            self.save[str(n - 1)]['record'] = time
-
-        elif time < previous_time:
-            br = BeatRec(self.screen, (previous_time, previous_name))
-            name = br.rendering()
-            self.save[str(n - 1)]['recName'] = name
-            self.save[str(n - 1)]['record'] = time
-
-
+        who_passed = [n for n,t in sorted(self.save[str(n - 1)]["whoPassed"], key=lambda x: x[1])]
+        name = BeatRec(self.screen, time, who_passed).rendering()
         try:
+            self.save[str(n - 1)]['whoPassed'].append((name, time))
             self.save[str(n)]['opened'] = True
             with open(SAVE_PATH, 'w') as f:
                 json.dump(self.save, f)
